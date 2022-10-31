@@ -1,0 +1,15 @@
+@import 'normalize.css';
+:root {
+    --primary: rgb(52, 67, 203);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'roboto', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
