@@ -1,5 +1,139 @@
 .wapper {
     width: 100%;
-    height: 50px;
-    background-color: aquamarine;
+    height: 70px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 70%;
+    background-color: white;
+}
+
+.logo,
+.searchbar,
+.HeaderRightContain {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.searchbar {
+    margin: auto;
+    width: 330px;
+    height: 40px;
+    background-color: #eeeff2;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-around;
+    border: solid 1px rgb(255, 255, 255);
+}
+
+.searchdecore {
+    width: 2%;
+    height: 75%;
+    margin: auto;
+    color: #ccc;
+}
+
+.searchinput {
+    width: 80%;
+    padding: 6px;
+    margin: 6px;
+    background-color: #eeeff2;
+    border: none;
+    &:focus-visible {
+        outline: 1px;
+    }
+}
+
+.searchbar:focus-within {
+    border: solid 1px #ccc;
+}
+
+.searchbtn {
+    background-color: #eeeff2;
+    padding: 12px 15px;
+    font-size: 1.6rem;
+    outline: 0px;
+    border: 0pc;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    &:hover {
+        background-color: #ccc;
+    }
+}
+
+.headerbtn {
+    position: relative;
+    margin: 16px 5px;
+    padding: 0px 10px;
+    background-color: white;
+    border-radius: 25px;
+    font-size: 2.0rem;
+    outline: 0px;
+    border: 0pc;
+    &:hover {
+        background-color: #ccc;
+    }
+}
+
+.headerbtn:hover {
+    .insertcmomtor {
+        display: block;
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        top: 28px;
+        left: 6px;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 14px solid whitesmoke;
+    }
+    .dropinfo {
+        display: block;
+        background-color: whitesmoke;
+        top: 36px;
+        width: 243px;
+        left: -202px;
+        position: absolute;
+        min-height: 100px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+}
+
+.alertheader {
+    position: absolute;
+    height: 10px;
+    color: rgb(171 19 19);
+    font-size: 1rem;
+    left: 19px;
+}
+
+.dropinfo {
+    display: none;
+    background-color: rgb(237, 230, 230);
+    top: 36px;
+    width: 243px;
+    left: -202px;
+    position: absolute;
+    min-height: 100px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.insertcmomtor {
+    display: none;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    top: 28px;
+    left: 6px;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid #ccc;
 }
