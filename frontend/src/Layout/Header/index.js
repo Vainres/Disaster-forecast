@@ -32,7 +32,13 @@ function Header() {
                             <FontAwesomeIcon icon={faCircle} />
                         </span>
                         <span className={cx('insertcmomtor')}></span>
-                        <div className={cx('dropinfo')}>1111</div>
+                        <div className={cx('dropinfo')}>
+                            1111
+                            <br />
+                            23333
+                            <br />
+                            5555 666
+                        </div>
                     </button>
                     <button className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faUser} />

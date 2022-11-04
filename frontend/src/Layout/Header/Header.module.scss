@@ -1,3 +1,18 @@
+@keyframes dropnoti {
+    0% {
+        transform: scaleX(0);
+        transform: scaleY(0);
+    }
+    90% {
+        transform: scaleX(1);
+        transform: scaleY(1.1);
+    }
+    100% {
+        transform: scaleX(1);
+        transform: scaleY(1);
+    }
+}
+
 .wapper {
     width: 100%;
     height: 70px;
@@ -96,13 +111,15 @@
         border-bottom: 14px solid whitesmoke;
     }
     .dropinfo {
+        animation: dropnoti 300ms ease-in-out forwards;
+        transform-origin: top right;
         display: block;
         background-color: whitesmoke;
         top: 36px;
         width: 243px;
         left: -202px;
         position: absolute;
-        min-height: 100px;
+        max-height: 100px;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     }
 }
@@ -122,7 +139,7 @@
     width: 243px;
     left: -202px;
     position: absolute;
-    min-height: 100px;
+    max-height: 100px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
