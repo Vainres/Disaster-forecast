@@ -20,6 +20,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 //api đăng kí
+Route::middleware(['checktoken'])->group(function () {
+    Route::get('info', function () {
+        return response()->json([
+            "message" => "lấy được thông tin"
+        ], 200);
+    });
+});
 Route::post('register', [RegisterController::class, 'Register']);
 // api create token
 Route::post('login', [LoginController::class, 'Login']);
