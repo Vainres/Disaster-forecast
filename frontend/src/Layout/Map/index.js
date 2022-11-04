@@ -82,7 +82,7 @@ function MapLo(props) {
         radius: 30000,
         zIndex: 1,
     };
-    const [akey, setakey] = useState(0);
+
     //setTimeout(() => setakey(Math.floor(Math.random() * 10)), 10000000);
     return (
         <div>
@@ -92,7 +92,7 @@ function MapLo(props) {
                 center={{ lat: parseFloat(locationUser.lat), lng: parseFloat(locationUser.long) }}
                 mapContainerStyle={containerStyle}
             >
-                <Marker key={{ akey }} position={{ lat: props.lat, lng: props.long }}></Marker>
+                <Marker key={2} position={{ lat: props.lat, lng: props.long }}></Marker>
             </GoogleMap>
         </div>
     );
