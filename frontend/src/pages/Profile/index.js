@@ -7,8 +7,8 @@ const cx = classNames.bind(styles);
 function Profile() {
     return (
         <div className={cx('wapper')}>
-            <SliderBarProfile className={cx('slider')} />
-            <InfoProfile className={cx('contentpf')} />
+            <SliderBarProfile className={cx('slider')} name="1" />
+            <InfoProfile className={cx('contentpf')} type="pass" />
         </div>
     );
 }

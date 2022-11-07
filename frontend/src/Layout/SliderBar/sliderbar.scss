@@ -16,6 +16,7 @@
 }
 
 .btn_bar {
+    display: block;
     margin-top: 20px;
     padding: 15px;
     color: rgb(98, 96, 100);
@@ -29,6 +30,14 @@
         border-radius: 6px;
         border: solid;
     }
+}
+
+.active {
+    cursor: pointer;
+    color: aliceblue;
+    background-color: rgb(50, 50, 50);
+    border-radius: 6px;
+    border: solid;
 }
 
 .btn_bar_name {
