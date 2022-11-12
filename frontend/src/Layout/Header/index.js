@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCircle, faHome, faMap, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import LogoWebsite from '~/Layout/Logo';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Header() {
@@ -40,9 +41,9 @@ function Header() {
                             5555 666
                         </div>
                     </button>
-                    <button className={cx('headerbtn')}>
+                    <Link to="/Profile" className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faUser} />
-                    </button>
+                    </Link>
                 </div>
             </div>
         </header>
