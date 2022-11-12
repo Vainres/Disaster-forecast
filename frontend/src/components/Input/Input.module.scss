@@ -38,6 +38,24 @@
     }
 }
 
+@keyframes inputmove1long {
+    from {
+        padding-left: 200px;
+    }
+    to {
+        padding-left: 10px;
+    }
+}
+
+@keyframes inputmove1reverselong {
+    from {
+        padding-left: 10px;
+    }
+    to {
+        padding-left: 200px;
+    }
+}
+
 .input {
     margin: 10px 55px;
     width: 741px;
@@ -107,4 +125,18 @@
 
 .tiny {
     width: 150px;
+}
+
+.longtitle {
+    .input__field {
+        padding-left: 200px;
+    }
+    .input__field:focus {
+        border: none;
+        padding-left: 10px;
+        animation: inputmove1long 500ms linear;
+    }
+    .input__field:not(:focus) {
+        animation: inputmove1reverselong 500ms linear;
+    }
 }

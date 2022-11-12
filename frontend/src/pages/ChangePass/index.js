@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 function EditPasspage() {
     return (
         <div className={cx('wapper')}>
-            <SliderBarProfile className={cx('slider')} name="2" />
+            <SliderBarProfile className={cx('slider')} name="4" />
             <ChangePass className={cx('contentpf')} />
         </div>
     );
