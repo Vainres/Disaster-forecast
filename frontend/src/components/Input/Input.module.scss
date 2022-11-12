@@ -1,0 +1,110 @@
+@keyframes inputmove {
+    from {
+        top: 0;
+        font-size: 1.8rem;
+    }
+    to {
+        top: -14px;
+        font-size: 1.6rem;
+    }
+}
+
+@keyframes inputmovereverse {
+    from {
+        top: -14px;
+        font-size: 1.6rem;
+    }
+    to {
+        top: 0;
+        font-size: 1.8rem;
+    }
+}
+
+@keyframes inputmove1 {
+    from {
+        padding-left: 100px;
+    }
+    to {
+        padding-left: 10px;
+    }
+}
+
+@keyframes inputmove1reverse {
+    from {
+        padding-left: 10px;
+    }
+    to {
+        padding-left: 100px;
+    }
+}
+
+.input {
+    margin: 10px 55px;
+    width: 741px;
+    height: 40px;
+    position: relative;
+    border-radius: 4px;
+    border: 2px solid black;
+    &__label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 8px;
+        margin: 0px;
+        font-weight: bold;
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    &__field {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        padding-left: 100px;
+        font-weight: bold;
+        font-size: 1.8rem;
+        background-color: white;
+        border: none;
+        // &:focus {
+        //     .input__label {
+        //         top: 0px;
+        //         width: 1000px;
+        //         color: aqua;
+        //     }
+        // }
+    }
+}
+
+.input__field:focus {
+    border: none;
+    padding-left: 10px;
+    animation: inputmove1 500ms linear;
+}
+
+.input__field:focus+.input__label {
+    padding: 1px;
+    background-color: white;
+    top: -14px;
+    left: 10px;
+    font-size: 1.6rem;
+    animation: inputmove 500ms linear;
+}
+
+.input__field:not(:focus)+.input__label {
+    animation: inputmovereverse 500ms linear;
+}
+
+.input__field:not(:focus) {
+    animation: inputmove1reverse 500ms linear;
+}
+
+.small {
+    width: 300px;
+}
+
+.medium {
+    width: 400px;
+}
+
+.tiny {
+    width: 150px;
+}

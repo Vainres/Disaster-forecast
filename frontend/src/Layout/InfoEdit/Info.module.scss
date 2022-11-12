@@ -1,5 +1,4 @@
 .wapper {
-    background-color: rgb(147, 98, 98);
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -14,4 +13,13 @@
     background-color: white;
     line-height: 69px;
     border-left: 0.5px solid rgba(160, 160, 160, 0.585);
+}
+
+.colum2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.insertcolumn {
+    width: 641px;
 }

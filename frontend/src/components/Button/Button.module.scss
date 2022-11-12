@@ -1,0 +1,47 @@
+.wapper {
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 4px;
+    margin: 6px;
+    color: rgb(50, 50, 50);
+    &:hover {
+        color: white;
+        background-color: black;
+    }
+}
+
+.primary {
+    background-color: aliceblue;
+    border: 1px solid rgb(90, 86, 86);
+}
+
+.success {
+    color: aliceblue;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.small {
+    width: 100px;
+}
+
+.medium {
+    width: 150px;
+}
+
+.large {
+    width: 200px;
+}
+
+.outline {
+    border: 2px solid rgb(22, 194, 197);
+    background-color: white;
+    color: rgb(50, 50, 50);
+    &:hover {
+        color: white;
+        border: 2px solid rgb(72, 8, 184);
+    }
+}
