@@ -22,6 +22,10 @@
     color: aliceblue;
     background-color: #28a745;
     border-color: #28a745;
+    &:hover {
+        color: rgb(250, 234, 234);
+        background-color: #117728;
+    }
 }
 
 .small {
