@@ -1,5 +1,5 @@
 import { GoogleMap, useLoadScript, Marker, Polyline } from '@react-google-maps/api';
-import { useState } from 'react';
+
 
 function MapLo(props) {
     const stormlist = {
@@ -93,6 +93,7 @@ function MapLo(props) {
                 mapContainerStyle={containerStyle}
             >
                 <Marker key={2} position={{ lat: props.lat, lng: props.long }}></Marker>
+                
             </GoogleMap>
         </div>
     );

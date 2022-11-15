@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "gsap": "^3.11.3",
+    "node-sass": "^8.0.0"
+  }
+}
