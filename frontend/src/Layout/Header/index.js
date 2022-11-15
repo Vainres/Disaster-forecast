@@ -21,12 +21,12 @@ function Header() {
                     </button>
                 </div>
                 <div className={cx('HeaderRightContain')}>
-                    <button className={cx('headerbtn')}>
+                    <Link to={'/'} className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faHome} />
-                    </button>
-                    <button className={cx('headerbtn')}>
+                    </Link>
+                    <Link to={'/admin'} className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faMap} />
-                    </button>
+                    </Link>
                     <button className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faBell} />
                         <span className={cx('alertheader')}>

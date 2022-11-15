@@ -1,5 +1,8 @@
 import { GoogleMap, useLoadScript, Marker, Polyline } from '@react-google-maps/api';
 import { useState } from 'react';
+import styles from './Map.module.scss';
+import classNames from 'classnames/bind';
+const cx = classNames.bind(styles);
 
 function MapLo(props) {
     const stormlist = {
@@ -85,7 +88,7 @@ function MapLo(props) {
 
     //setTimeout(() => setakey(Math.floor(Math.random() * 10)), 10000000);
     return (
-        <div>
+        <div className={cx('wapper')}>
             {locationUser.lat}-{locationUser.long}
             <GoogleMap
                 zoom={15}
