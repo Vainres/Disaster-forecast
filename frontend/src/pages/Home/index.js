@@ -1,12 +1,22 @@
 import MapLo from '~/Layout/Map';
-function Home() {
-    //const key = 'AIzaSyCk1uOylCc-hAY61rQojz9bQ7luSTkWQy0';
+import { LoadScript } from "@react-google-maps/api";
+  
 
-    return (
-        <div style={{ height: '500px', width: '50%', backgroundColor: 'yellow' }}>
-            <MapLo key={7} lat={10} long={100} />
+function Home() {
+    const key = 'AIzaSyAhoAQJ5a09Kw3CIdRKYCgwUdEvhRtO7BU';
+    const lib = ["places"];
+    return ( 
+        <div style = {
+            { height: '500px', width: '50%', backgroundColor: 'yellow' } } >
+            <LoadScript googleMapsApiKey={key} libraries={lib}>
+            <MapLo 
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${key}&callback=Home`}
+            key={7} lat={10} long={100} />
+            </LoadScript>
+            
+            
+
         </div>
     );
 }
-
 export default Home;

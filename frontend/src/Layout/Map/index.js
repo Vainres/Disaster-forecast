@@ -1,10 +1,11 @@
 import { GoogleMap, useLoadScript, Marker, Polyline } from '@react-google-maps/api';
-import { useState } from 'react';
+import { React,useState } from 'react';
 import styles from './Map.module.scss';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
-
 function MapLo(props) {
+    const google = window.google
+    
     const stormlist = {
         id: 1,
         name: 'Noru',
@@ -29,9 +30,9 @@ function MapLo(props) {
         </div>
     );
     console.log(StormListmaker);
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyD8Oywi2-oGz35DFGhA7uV39kdkULR11ss',
-    });
+    // const { isLoaded } = useLoadScript({
+    //     googleMapsApiKey: 'AIzaSyD8Oywi2-oGz35DFGhA7uV39kdkULR11ss',
+    // });
     const containerStyle = {
         width: '100%',
         height: '500px',
@@ -95,10 +96,11 @@ function MapLo(props) {
                 center={{ lat: parseFloat(locationUser.lat), lng: parseFloat(locationUser.long) }}
                 mapContainerStyle={containerStyle}
             >
-                <Marker key={2} position={{ lat: props.lat, lng: props.long }}></Marker>
+                
             </GoogleMap>
         </div>
     );
 }
 
 export default MapLo;
+{/* <Marker key={2} position={{ lat: props.lat, lng: props.long }}></Marker> */}
