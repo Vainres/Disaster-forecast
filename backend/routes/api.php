@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware(['checktoken'])->group(function () {
             "message" => "lấy được thông tin"
         ], 200);
     });
+    Route::get('userinfo', [UserController::class, 'GetUserInfo']);
 });
 Route::post('register', [RegisterController::class, 'Register']);
 // api create token

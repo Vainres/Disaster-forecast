@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '~/Layout/Login-Register/Login-Register.css';
 import request from '~/utils/request';
 import validation from './validation';
@@ -49,7 +49,11 @@ const Register = () => {
                     }
                 })
                 .catch((e) => {
-                    console.log(e);
+                    setErrors(() => {
+                        var errors = {};
+                        errors.register = 'Đăng kí lỗi, vui lòng thử lại!!!';
+                        return errors;
+                    });
                 });
         }
     };
@@ -113,6 +117,11 @@ const Register = () => {
                         <button className="submit" onClick={handleFormSubmit}>
                             Đăng kí
                         </button>
+                    </div>
+
+                    <div className="div">
+                        Bạn đã có tài khoản? Đăng nhập
+                        <Link to="/login"> tại đây</Link>
                     </div>
                 </form>
             </div>
