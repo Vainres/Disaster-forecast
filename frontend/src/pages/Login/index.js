@@ -92,6 +92,10 @@ const Login = () => {
                             Đăng nhập
                         </button>
                     </div>
+                    <div className="div">
+                        Bạn chưa có tài khoản? Đăng ký
+                        <Link to="/register"> tại đây</Link>
+                    </div>
                 </form>
             </div>
         </div>
