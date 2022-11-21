@@ -1,24 +1,19 @@
 const validation = (values) => {
+    let errors = {};
 
-    let errors  = {};
-
-    if(!values.fullname){
-        errors.fullname="required"
+    if (!values.email) {
+        errors.eamil = 'Bắt buộc nhập trường này !';
+    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+        errors.email = 'Trường này phải nhập email';
     }
 
-    if(!values.email){
-        errors.fullname="required"
-    } else if(!/\S+@\S+\.\S+/.test(values.email)){
-        errors.email="invalid"
-    }
-
-    if(!values.password){
-        errors.fullname="required"
-    } else if(values.password.length < 5){
-        errors.password=">5 character"
+    if (!values.password) {
+        errors.fullname = 'Bắt buộc nhập trường này !';
+    } else if (values.password.length < 5) {
+        errors.password = 'Trường này phải >5 ký tự';
     }
 
     return errors;
-}
+};
 
 export default validation;

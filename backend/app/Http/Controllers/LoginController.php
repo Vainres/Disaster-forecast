@@ -14,6 +14,7 @@ class LoginController extends Controller
             "email" => $request->email,
             "password" => $request->password
         ];
+        //dd($datalogin);
         if (auth()->attempt($datalogin)) {
             $checkTokenExit = SessionUser::where('user_id', auth()->id())->first();
             $UserLogin = null;
@@ -36,8 +37,9 @@ class LoginController extends Controller
         } else {
             return response()->json([
                 'code' => 401,
-                'message' => "Email or password incorrect"
-            ], 200);
+                'message' => "Email or password incorrect",
+                'data' => $datalogin
+            ], 201);
         }
     }
 }

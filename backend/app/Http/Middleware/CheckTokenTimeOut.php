@@ -24,14 +24,14 @@ class CheckTokenTimeOut
         if (empty($sessionUser)) {
             return response()->json([
                 'message' => "token not exist",
-                'code' => '201'
+                'code' => '401'
 
             ], 200);
         } elseif ($sessionUser->token_expired < date("Y-m-d H:i:s")) {
             $sessionUser->delete();
             return response()->json([
                 'message' => "token expired",
-                'code' => '201'
+                'code' => '401'
 
             ], 200);
         }
