@@ -4,6 +4,7 @@ import styles from './Button.module.scss';
 const cx = classNames.bind(styles);
 
 function Button({
+    title = '',
     to,
     href,
     primary = false,
@@ -12,6 +13,9 @@ function Button({
     medium = false,
     large = false,
     success = false,
+    muti = false,
+    fix = false,
+    danger = false,
     children,
     onClick,
     ...passprops
@@ -28,10 +32,13 @@ function Button({
         props.href = href;
         Comp = 'a';
     }
-    const classes = cx('wapper', { primary, outline, small, medium, large, success });
+    const classes = cx('wapper', { fix, danger, muti, primary, outline, small, medium, large, success });
     return (
         <Comp className={classes} {...props}>
-            <span>{children}</span>
+            <span>
+                {children}
+                {title}
+            </span>
         </Comp>
     );
 }

@@ -19,3 +19,65 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
 }
+
+.popupcontain {
+    position: relative;
+}
+
+.curtain {
+    width: 10000px;
+    height: 10000px;
+    top: -3000px;
+    left: -3000px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #1b231991;
+    z-index: -1;
+}
+
+.modal {
+    width: 800px;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: white;
+}
+
+.modal>.header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    padding: 5px;
+}
+
+.modal>.content {
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.modal>.actions {
+    margin: auto;
+}
+
+.modal>.actions {
+    width: 100%;
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.modal>.close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+}
