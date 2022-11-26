@@ -141,6 +141,19 @@ function DisasterList(props) {
                 <Popup
                     className={cx('popupcontain')}
                     modal
+                    trigger={<button id="showpopup_edit"></button>}
+                    position="right center"
+                >
+                    {(close) => (
+                        <div>
+                            <div className={cx('curtain')}></div>
+                            <AddDisaster close={close} />
+                        </div>
+                    )}
+                </Popup>
+                <Popup
+                    className={cx('popupcontain')}
+                    modal
                     trigger={<button id="showpopup_importexcel"></button>}
                     position="right center"
                 >

@@ -8,10 +8,12 @@ const cx = classNames.bind(styles);
 function MutiButtonAd(props) {
     const data = props.data;
     const handelfix = () => {
-        console.log('handelfix', data);
+        document.getElementById('showpopup_edit').click();
+        localStorage.setItem('id_edit', data.id);
     };
     const handeldelete = () => {
-        console.log('handeldelete', data);
+        document.getElementById('showpopup_alert').click();
+        localStorage.setItem('id_delete', data.id);
     };
     return (
         <div className={cx('wrapper')}>
