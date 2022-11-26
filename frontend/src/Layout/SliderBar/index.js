@@ -28,10 +28,10 @@ function SliderBarProfile(props) {
                     <FontAwesomeIcon icon={faShieldVirus}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Đổi mật khẩu</span>
                 </Link>
-                <div className={cx('btn_logout')}>
+                <Link to="/login" className={cx('btn_logout')}>
                     <FontAwesomeIcon icon={faRightToBracket}></FontAwesomeIcon>
                     <span className={cx('btn_logout_text')}>Đăng xuất</span>
-                </div>
+                </Link>
             </div>
         </div>
     );

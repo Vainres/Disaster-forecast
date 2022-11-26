@@ -49,3 +49,29 @@
         border: 2px solid rgb(72, 8, 184);
     }
 }
+
+.danger {
+    color: white;
+    border: none;
+    background-color: #dc3545;
+    &:hover {
+        background-color: #742028;
+        border: red solid 1px;
+    }
+}
+
+.fix {
+    color: white;
+    border: none;
+    background-color: #117a8b;
+    &:hover {
+        background-color: #0c5560;
+        border: rgb(21, 227, 203) solid 1px;
+    }
+}
+
+.muti {
+    padding: 5px;
+    width: 60px;
+    height: 30px;
+}
