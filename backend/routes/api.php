@@ -35,6 +35,8 @@ Route::get('admin/getuserif', [AdminController::class, 'FindID']);
 Route::post('admin/updateif', [AdminController::class, 'UpdateIF']);
 Route::post('admin/deleteadmin', [AdminController::class, 'DeleteID']);
 Route::post('admin/add', [AdminController::class, 'AddAdmin']);
+Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
+Route::post('admin/changepassword/changePassword', [UserController::class, 'ChangePassword']);
 
 
 Route::post('register', [RegisterController::class, 'Register']);
