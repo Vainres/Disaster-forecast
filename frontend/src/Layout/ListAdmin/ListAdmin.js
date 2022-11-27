@@ -97,7 +97,7 @@ function ListAddmin(props) {
                 <Popup
                     className={cx('popupcontain')}
                     modal
-                    trigger={<button id="showpopup_edit"></button>}
+                    trigger={<button className={cx('hidden')} id="showpopup_edit"></button>}
                     position="right center"
                 >
                     {(close) => (
@@ -116,7 +116,7 @@ function ListAddmin(props) {
                 <Popup
                     className={cx('popupcontain')}
                     modal
-                    trigger={<button id="showpopup_importexcel"></button>}
+                    trigger={<button className={cx('hidden')} id="showpopup_importexcel"></button>}
                     position="right center"
                 >
                     {(close) => (
@@ -129,7 +129,7 @@ function ListAddmin(props) {
                 <Popup
                     className={cx('popupcontain')}
                     modal
-                    trigger={<button id="showpopup_alert"></button>}
+                    trigger={<button className={cx('hidden')} id="showpopup_alert"></button>}
                     position="right center"
                 >
                     {(close) => (
