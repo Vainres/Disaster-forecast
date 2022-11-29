@@ -13,6 +13,7 @@ class RegisterController extends Controller
         $UserCreate = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'isUser' => 1,
             'password' => bcrypt($request->password)
         ]);
         return response()->json([

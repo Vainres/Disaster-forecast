@@ -3,6 +3,7 @@ import {
     faHurricane,
     faInfoCircle,
     faPen,
+    faPeopleRoof,
     faRightToBracket,
     faShieldVirus,
     faUserPlus,
@@ -24,18 +25,19 @@ function SliderBarAdmin(props) {
                     <FontAwesomeIcon icon={faHurricane}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Danh sách thiên tai</span>
                 </Link>
-                <Link to={'/editprofile'} className={cx(props.name === '2' ? 'btn_bar active' : 'btn_bar')}>
+                <Link to={'/admin/add'} className={cx(props.name === '2' ? 'btn_bar active' : 'btn_bar')}>
+                    <FontAwesomeIcon icon={faPeopleRoof}></FontAwesomeIcon>
+                    <span className={cx('btn_bar_name')}>Danh sách Admin</span>
+                </Link>
+                <Link to={'/editprofile'} className={cx(props.name === '3' ? 'btn_bar active' : 'btn_bar')}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Chỉnh sửa thông tin</span>
                 </Link>
-                <Link className={cx(props.name === '3' ? 'btn_bar active' : 'btn_bar')}>
+                <Link className={cx(props.name === '4' ? 'btn_bar active' : 'btn_bar')}>
                     <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Cài đặt thông báo</span>
                 </Link>
-                <Link to={'/admin/add'} className={cx(props.name === '4' ? 'btn_bar active' : 'btn_bar')}>
-                    <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
-                    <span className={cx('btn_bar_name')}>Thêm Admin</span>
-                </Link>
+
                 {/* <div className={cx('btn_logout')}>
                     <FontAwesomeIcon icon={faRightToBracket}></FontAwesomeIcon>
                     <span className={cx('btn_logout_text')}>Đăng xuất</span>
