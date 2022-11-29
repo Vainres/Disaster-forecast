@@ -1,0 +1,57 @@
+[   {
+    "name": "Noru",
+    "startTime" : "19/09/2022",
+    "data" :[
+                {
+                    "position" :{
+                        "lat": 10.027763,
+                        "lng": 105.83416
+                    },
+                    "label": "position 1",
+                    "radius1":20000,
+                    "radius2":50000,
+                    "radius3":150000
+                    
+                },
+                {
+                    "position" :{
+                        "lat": 12.027763,
+                        "lng": 105.83416
+                    },
+                    "label": "position 3",
+                    "radius1":15000,
+                    "radius2":30000,
+                    "radius3":80000
+
+                }
+            ]
+    },
+    {
+        "name": "ASR",
+        "startTime" : "16/09/2022",
+        "data" :[
+                    {
+                        "position" :{
+                            "lat": 12.027763,
+                            "lng": 105.83416
+                        },
+                        "label": "position 1",
+                        "radius1":20000,
+                        "radius2":50000,
+                        "radius3":150000
+                        
+                    },
+                    {
+                        "position" :{
+                            "lat": 13.027763,
+                            "lng": 105.83416
+                        },
+                        "label": "position 3",
+                        "radius1":15000,
+                        "radius2":30000,
+                        "radius3":80000
+    
+                    }
+                ]
+        }
+]

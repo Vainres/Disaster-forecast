@@ -1,106 +1,79 @@
-import { GoogleMap, useLoadScript, Marker, Polyline } from '@react-google-maps/api';
-import { React,useState } from 'react';
+import { GoogleMap, MarkerF, Polyline,Polygon ,Circle,InfoWindow,DirectionsRenderer} from '@react-google-maps/api';
+import { React,useState,useMemo,useCallback ,useRef, useEffect,} from 'react';
 import styles from './Map.module.scss';
 import classNames from 'classnames/bind';
+import Storm from '~/components/Storm';
+
 const cx = classNames.bind(styles);
-function MapLo(props) {
-    const google = window.google
-    
-    const stormlist = {
-        id: 1,
-        name: 'Noru',
-        vitri: [
-            {
-                day: 1,
-                localeye: { lat: 0, lng: 5 },
-                descript: 'Bão rất mạnh',
-            },
-            {
-                day: 2,
-                localeye: { lat: 0, lng: 5 },
-                descript: 'Bão rất mạnh',
-            },
-        ],
-    };
-    const StormListmaker = (
-        <div>
-            {stormlist.vitri.map((data, index) => {
-                <Marker key={index} position={data.localeye}></Marker>;
-            })}
-        </div>
-    );
-    console.log(StormListmaker);
-    // const { isLoaded } = useLoadScript({
-    //     googleMapsApiKey: 'AIzaSyD8Oywi2-oGz35DFGhA7uV39kdkULR11ss',
-    // });
-    const containerStyle = {
+
+export default function MapLo({StormData,locationUser,addMark=()=>{} ,setMapRef=()=>{} }) {
+    const [stormData,setStormData] = useState(StormData);
+  
+    const mapRef = useRef();
+    const [markerList,setMarkerList] = useState([locationUser]);
+    const [rightClickLocation,setRightClickLocation] = useState(null);
+    const [directions,setDirections] = useState();
+    const containerStyle = useMemo(() => ({
         width: '100%',
-        height: '500px',
-    };
-    var locationUser = { lat: 10, long: 10 };
-    function getLocation(pos) {
-        localStorage.setItem('lat', pos.coords.latitude);
-        localStorage.setItem('long', pos.coords.longitude);
-        //console.log('ss', locationUser);
-        //return lat, long;
-    }
-    navigator.geolocation.getCurrentPosition(getLocation);
-    //getLocation();
-    locationUser.lat = localStorage.getItem('lat');
-    locationUser.long = localStorage.getItem('long');
-    console.log('ss', locationUser);
+        height: '100%',
+    }),[]);
 
-    console.log(Object.values(locationUser));
-    const positions = [
-        {
-            lat: 10.027763,
-            lng: 105.83416,
-            label: 'position 1',
-        },
-        {
-            lat: 10.027763,
-            lng: 106,
-            label: 'position 2',
-        },
-        {
-            lat: 10.127763,
-            lng: 106.1,
-            label: 'position 3',
-        },
-        {
-            lat: 10.027763,
-            lng: 105.83416,
-            label: 'position 1',
-        },
-    ];
-    const optionsPolyline = {
-        strokeColor: 'red',
-        strokeOpacity: 0.8,
-        strokeWeight: 3,
-        fillColor: '#085daa',
-        fillOpacity: 0.35,
-        clickable: false,
-        draggable: false,
-        editable: false,
-        visible: true,
-        radius: 30000,
-        zIndex: 1,
-    };
+    const onRightClick = useCallback((map) =>  {mapRef.current = map;console.log('mapref',mapRef)},[]);
+    
+    const options = useMemo(
+        () => ({
+          mapId: "b181cac70f27f5e6",
+          disableDefaultUI: true,
+          clickableIcons: false,
+        }),
+        []
+      );
+    const onMark = useCallback(() => {
+        const subLi = markerList;
+        const subMa = rightClickLocation;
+        subLi.push(subMa);
+        addMark(subMa)
+        setRightClickLocation(null);
+    })
+  
+    const fetchDirection = useCallback((StormData,currentPosition) => {
+        setDirections([StormData[0].position,currentPosition]);
+        
+    })
 
-    //setTimeout(() => setakey(Math.floor(Math.random() * 10)), 10000000);
+    const onLoad = useCallback((map) =>  {  mapRef.current = map;
+                                            console.log('mapref',mapRef);
+                                            setMapRef(map);},[]);
     return (
         <div className={cx('wapper')}>
-            {locationUser.lat}-{locationUser.long}
             <GoogleMap
-                zoom={15}
-                center={{ lat: parseFloat(locationUser.lat), lng: parseFloat(locationUser.long) }}
+                zoom={8}
+                center={locationUser}
                 mapContainerStyle={containerStyle}
+                options = {options}
+                onLoad={onLoad}
+                onRightClick={(e)=>{setRightClickLocation({lat:e.latLng.lat() ,lng:e.latLng.lng()})}}
             >
+                {rightClickLocation&& <InfoWindow position={rightClickLocation} onCloseClick={()=> setRightClickLocation(null)} >
+                <span>
+                  <button  onClick={onMark}>mark this</button>
                 
+                </span>
+              </InfoWindow>}
+                
+                {directions && <Polyline path={directions}/> }
+
+                {markerList.map((location)=><MarkerF position={location} onClick = {()=> fetchDirection(stormData,location)}/>  )}
+                {Object.keys(stormData).length>0 && stormData.map((storm) => {
+                                                                                console.log('ready',storm);
+                                                                                if(storm.active)
+                                                                                return storm.data.map(stormpoint=><Storm storm={stormpoint}/>)
+                }) } 
             </GoogleMap>
+
         </div>
     );
 }
 
-export default MapLo;
-{/* <Marker key={2} position={{ lat: props.lat, lng: props.long }}></Marker> */}
+
+//   icon="https://static.wikia.nocookie.net/gensin-impact/images/6/6f/Enemy_Eye_of_the_Storm_Icon.png"

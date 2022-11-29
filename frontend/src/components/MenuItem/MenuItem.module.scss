@@ -1,0 +1,56 @@
+.item{
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 40px ;
+    width: 170px;
+    height: 50px;
+    background-color: #14161a;
+  }
+
+  .active{
+  background-color: #343434;
+  }
+  .iteminfo{
+    display: grid;
+    align-items: center;
+    grid-template-rows:35px auto;
+  }
+
+  .iteminfo:hover{
+  background-color: #343434;
+    color: #61dafb;
+  }
+  
+  .itemname{
+    font-size: medium;
+    font-weight: bold;
+  }
+  .itemdetail{
+    font-size:x-small;
+  }
+
+  .icon{
+    width: 100%;
+  }
+  .location{
+    display: flex;
+    height: 100%;
+    background-color: #14161a;
+    align-items: center;
+
+  }
+  .location:hover{
+  background-color: #343434;
+  }
+
+  .location:active{
+    background-color: #1c1c1c;
+    }
+  .iteminfo:active{
+    background-color: #1c1c1c;
+
+  }
+  .item:active{
+    background-color: #1c1c1c;
+
+  }
