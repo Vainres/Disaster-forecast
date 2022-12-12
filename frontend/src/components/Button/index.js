@@ -16,6 +16,7 @@ function Button({
     muti = false,
     fix = false,
     danger = false,
+    warns = false,
     children,
     onClick,
     ...passprops
@@ -32,7 +33,7 @@ function Button({
         props.href = href;
         Comp = 'a';
     }
-    const classes = cx('wapper', { fix, danger, muti, primary, outline, small, medium, large, success });
+    const classes = cx('wapper', { fix, danger, muti, primary, outline, warns, small, medium, large, success });
     return (
         <Comp className={classes} {...props}>
             <span>

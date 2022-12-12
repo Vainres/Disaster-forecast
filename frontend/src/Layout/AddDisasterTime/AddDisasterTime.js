@@ -12,7 +12,7 @@ import { fontSize } from '@mui/system';
 
 const cx = classNames.bind(styles);
 
-function AddDisaster({ close, funsub = () => {} }) {
+function AddDisasterTime({ close, funsub = () => {} }) {
     const [info, setinfo] = useState({ name: '', time: '', level: '', country: '', lat: '', long: '' });
     const [msg, setmsg] = useState('Thêm');
     const AddNewDisaster = () => {
@@ -58,89 +58,17 @@ function AddDisaster({ close, funsub = () => {} }) {
             <a className={cx('close')} onClick={close}>
                 &times;
             </a>
-            <div className={cx('header')}> Thêm Thiên Tai </div>
+            <div className={cx('header')}> Thêm Mốc Thời Gian Thiên Tai </div>
             <div className={cx('cxcontent')}>
                 <div className={cx('wapper')}>
                     {/* <h2 className={cx('title')}>Thêm Quản Trị</h2> */}
-                    <Input
-                        name="name"
-                        title="Name"
-                        placeholder="Tên bão"
-                        forpopup
-                        onChange={(e) => {
-                            setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, name: e.target.value }));
-                        }}
-                    ></Input>
-
-                    <Input
-                        name="level"
-                        title="Level"
-                        placeholder="Cấp bão, hãy nhập 1 số"
-                        forpopup
-                        onChange={(e) => {
-                            setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, level: e.target.value }));
-                        }}
-                    ></Input>
-                    <Input
-                        name="type"
-                        title="type"
-                        placeholder="Loại Thiên Tai(Bão, Động Đấtm,..)"
-                        forpopup
-                        onChange={(e) => {
-                            setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, type: e.target.value }));
-                        }}
-                    ></Input>
                     <LocalizationProvider className={cx('padding10dt')} dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                             className={cx('datetimepicker')}
-                            label="Start Time"
+                            label="Ngày:"
                             onChange={(value) => {
                                 console.log(value);
                             }}
-                            renderInput={(params) => (
-                                <TextField
-                                    sx={{
-                                        '& .MuiInputBase-input': {
-                                            height: '30px',
-                                            fontSize: '16px',
-                                            fontWeight: '700',
-                                            padding: '6px',
-                                            borderRadius: '4px',
-                                            //border: ' 2px solid black',
-                                            //margin: '0px 54px',
-                                        },
-                                        '&': {
-                                            height: '44px',
-                                            border: ' 2px solid black',
-                                            margin: '5px 54px',
-                                            fontSize: '16px',
-                                        },
-                                        '&:focus': {
-                                            height: '44px',
-                                            border: ' 2px solid black',
-                                            margin: '5px 54px',
-                                            fontSize: '16px',
-                                        },
-                                        '& >label': {
-                                            backgroundColor: 'white',
-                                            color: 'black',
-                                            fontSize: '16px',
-                                            fontWeight: '700',
-                                        },
-                                    }}
-                                    {...params}
-                                ></TextField>
-                            )}
-                        />
-                        <DateTimePicker
-                            label="EndTime"
-                            onChange={(value) => {
-                                console.log(value);
-                            }}
-                            className={cx('datetimepicker')}
                             renderInput={(params) => (
                                 <TextField
                                     sx={{
@@ -177,7 +105,26 @@ function AddDisaster({ close, funsub = () => {} }) {
                             )}
                         />
                     </LocalizationProvider>
-                    <label>Điểm Bắt Đầu:</label>
+                    <Input
+                        name="level"
+                        title="Level"
+                        placeholder="Cấp bão, hãy nhập 1 số"
+                        forpopup
+                        onChange={(e) => {
+                            setmsg('Thêm');
+                            setinfo((pre) => ({ ...pre, level: e.target.value }));
+                        }}
+                    ></Input>
+                    <Input
+                        name="country"
+                        title="Country"
+                        placeholder="Địa điểm xảy ra bão"
+                        forpopup
+                        onChange={(e) => {
+                            setmsg('Thêm');
+                            setinfo((pre) => ({ ...pre, country: e.target.value }));
+                        }}
+                    ></Input>
                     <Input
                         name="lat"
                         title="Lat"
@@ -198,27 +145,46 @@ function AddDisaster({ close, funsub = () => {} }) {
                             setinfo((pre) => ({ ...pre, long: e.target.value }));
                         }}
                     ></Input>
-                    <label>{'Điểm Kết thúc (Dự đoán):'}</label>
-                    <Input
-                        name="lat"
-                        title="Lat"
-                        placeholder="Lat"
-                        forpopup
-                        onChange={(e) => {
-                            setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, lat: e.target.value }));
-                        }}
-                    ></Input>
-                    <Input
-                        name="long"
-                        title="Long"
-                        placeholder="Long"
-                        forpopup
-                        onChange={(e) => {
-                            setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, long: e.target.value }));
-                        }}
-                    ></Input>
+
+                    {/* -----------------addlist------------------*/}
+
+                    {inputList.map((x, i) => {
+                        return (
+                            <div className={cx('AddListwapper')}>
+                                <Input
+                                    name="range"
+                                    title="Range"
+                                    placeholder="..."
+                                    forpopup
+                                    onChange={(e) => handleinputchange(e, i)}
+                                ></Input>
+                                <Input
+                                    name="windspeed"
+                                    title="Windspeed"
+                                    placeholder="..."
+                                    forpopup
+                                    onChange={(e) => handleinputchange(e, i)}
+                                ></Input>
+                                <Input
+                                    name="type"
+                                    title="Type"
+                                    placeholder="..."
+                                    forpopup
+                                    onChange={(e) => handleinputchange(e, i)}
+                                ></Input>
+                                {inputList.length !== 1 && (
+                                    <button className={cx('DelListbutton')} onClick={() => handleDelete(i)}>
+                                        Del
+                                    </button>
+                                )}
+                                {inputList.length - 1 === i && (
+                                    <button className={cx('AddListbutton')} onClick={handleaddclick}>
+                                        Add
+                                    </button>
+                                )}
+                            </div>
+                        );
+                    })}
                     <div className={cx('colum2')}>
                         <div className={cx('insertcolumn')}></div>
                         <Button success small onClick={AddNewDisaster}>
@@ -231,4 +197,4 @@ function AddDisaster({ close, funsub = () => {} }) {
     );
 }
 
-export default AddDisaster;
+export default AddDisasterTime;
