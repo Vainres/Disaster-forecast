@@ -5,7 +5,7 @@ import TableDrag from '~/components/TableDrag/TableDrag';
 import MutiButtonAd from '~/components/MutiButtonAd/MutiButtonAd';
 import styles from './Info.module.scss';
 import Popup from 'reactjs-popup';
-import AddDisaster from '~/Layout/AddDisaster/AddDisaster';
+import AddDisaster from '~/Layout/AddDisasterTime/AddDisasterTime';
 import AddAdmin from '~/Layout/AddAdmin';
 import EditAdmin from '~/Layout/EditAdmin/EditAdmin';
 import { useState, useEffect } from 'react';

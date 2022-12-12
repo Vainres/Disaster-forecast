@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DisastertimeController;
+use App\Http\Controllers\PointController;
+use App\Http\Controllers\StormController;
+use App\Models\DisasterTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
@@ -23,22 +27,32 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //api đăng kí
 Route::middleware(['checktoken'])->group(function () {
-    Route::get('info', function () {
-        return response()->json([
-            "message" => "lấy được thông tin"
-        ], 200);
-    });
+    Route::get(
+        'info',
+        function () {
+            return response()->json([
+                "message" => "lấy được thông tin"
+            ], 200);
+        }
+    );
     Route::get('userinfo', [UserController::class, 'GetUserInfo']);
+    Route::post('user/addlocation', [UserController::class, 'UserAddLocation']);
+    Route::resource('point', PointController::class);
 });
+
+Route::middleware(['checktoken', 'checkadmin'])->group(function () {
+
+    Route::get('admin/getuserif', [AdminController::class, 'FindID']);
+    Route::post('admin/updateif', [AdminController::class, 'UpdateIF']);
+    Route::post('admin/deleteadmin', [AdminController::class, 'DeleteID']);
+    Route::post('admin/add', [AdminController::class, 'AddAdmin']);
+    Route::resource('/admin/storm', StormController::class);
+    Route::resource('/admin/disastertime', DisastertimeController::class);
+    Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
+    Route::post('admin/changepassword/changePassword', [UserController::class, 'ChangePassword']);
+});
+
 Route::get('admin/listadmin', [AdminController::class, 'GetListAdmin']);
-Route::get('admin/getuserif', [AdminController::class, 'FindID']);
-Route::post('admin/updateif', [AdminController::class, 'UpdateIF']);
-Route::post('admin/deleteadmin', [AdminController::class, 'DeleteID']);
-Route::post('admin/add', [AdminController::class, 'AddAdmin']);
-Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
-Route::post('admin/changepassword/changePassword', [UserController::class, 'ChangePassword']);
-
-
 Route::post('register', [RegisterController::class, 'Register']);
 // api create token
 Route::post('login', [LoginController::class, 'Login']);

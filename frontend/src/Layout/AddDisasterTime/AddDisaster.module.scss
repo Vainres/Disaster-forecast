@@ -8,16 +8,17 @@
     //box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.AddListwapper {
+.AddListwapper{
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
     margin: 10px;
+   
 }
 
-.AddListbutton {
+.AddListbutton{
     width: 200px;
     height: 36px;
     background-color: #28a745;
@@ -27,8 +28,7 @@
     border-radius: 5px;
     border-color: #28a745;
 }
-
-.DelListbutton {
+.DelListbutton{
     width: 200px;
     height: 36px;
     background-color: #e51d1d;
@@ -55,18 +55,4 @@
 
 .insertcolumn {
     width: 600px;
-}
-
-.padding10dt {
-    padding: 100px;
-    margin: 3px 54px;
-    font-size: 50px;
-}
-
-.datetimepicker {
-    border: 2px solid black;
-    border-radius: 4px;
-    height: 36px;
-    font-size: 69px;
-    width: 651px;
 }
