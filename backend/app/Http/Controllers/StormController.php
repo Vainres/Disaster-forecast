@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disaster;
+use App\Models\DisasterTime;
+use App\Models\Orbit;
 use App\Models\Point;
 use Illuminate\Http\Request;
 
@@ -112,5 +114,36 @@ class StormController extends Controller
         }
 
         return response()->json(['message' => 'delete sucessful', 'result' => 0], 202);
+    }
+    public function filters(Request $request)
+    {
+        $data = [];
+        if ($request->data != null) {
+            $data = Disaster::whereBetween('startTime', [$request->data['startTime'], $request->data['endTime']])->get()->toArray();
+            foreach ($data as $key => $value) {
+
+                $DisastertimeData = DisasterTime::where('DisasterID', $data[$key]['id'])->join('points', 'disaster_times.pointID', 'points.id')->get()->toArray();
+                foreach ($DisastertimeData as $k => $v) {
+                    $Dataorbit = Orbit::where('DisasterTimeID', $DisastertimeData[$k]['id'])->get()->toArray();
+                    $DisastertimeData[$k]['Orbit'] = $Dataorbit;
+                }
+                $data[$key]['DisasterTime'] = $DisastertimeData;
+            }
+
+
+        } else {
+            $data = Disaster::whereBetween('startTime', [$request->data['startTime'], $request->data['endTime']])->get()->toArray();
+            foreach ($data as $key => $value) {
+
+                $DisastertimeData = DisasterTime::where('DisasterID', $data[$key]['id'])->join('points', 'disaster_times.pointID', 'points.id')->get()->toArray();
+                foreach ($DisastertimeData as $k => $v) {
+                    $Dataorbit = Orbit::where('DisasterTimeID', $DisastertimeData[$k]['id'])->get()->toArray();
+                    $DisastertimeData[$k]['Orbit'] = $Dataorbit;
+                }
+                $data[$key]['DisasterTime'] = $DisastertimeData;
+            }
+
+        }
+        return ['data' => $data, 'result' => 0];
     }
 }
