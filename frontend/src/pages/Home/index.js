@@ -16,6 +16,7 @@ import Item from '../../components/MenuItem'
 const cx = classNames.bind(styles);
 
 
+
 function Home() {
     const getLocation = useCallback((pos) => {
         localStorage.setItem('lat', pos.coords.latitude);
@@ -23,9 +24,9 @@ function Home() {
     },[])
     
     const mapRef = useRef();
-    const setMapRef = useCallback((map)=>{
-        console.log('mapset');
 
+
+    const setMapRef = useCallback((map)=>{
         mapRef.current = map;
     },[])
 
@@ -37,39 +38,47 @@ function Home() {
 
 
     navigator.geolocation.getCurrentPosition(getLocation);
-    const [locationUser,setLocationUser] = useState({ lat: Number(localStorage.getItem('lat')), lng: Number(localStorage.getItem('long')) });
+    const MarkerList = useRef([{    position:{   
+                                                lat: Number(localStorage.getItem('lat')),
+                                                lng: Number(localStorage.getItem('long'))
+                                            },
+                                    active:true}])
+    const [locationUser,setLocationUser] = useState(MarkerList.current);
     
     const StormData = useRef(myData.map( data => ({...data,active:false})));
     const [StormRender,setStormRender] = useState(StormData.current);
-    const Rerender = useRef(false);
+    const countState = useRef(0);
+    const [GoogleKey,setGoogleKey] = useState(countState.current);
 
+    const liB= useRef(["places","geometry"]);
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyCZ-1P31RBKjlgL1UA2SYJ1KypcCg1Pdqs",
-        libraries: ["places"],
+        googleMapsApiKey: "AIzaSyCZ-1P31RBKjlgL1UA2SYJ1KypcCg1Pdqs&libraries=geometry",
+        libraries: liB.current,
       });
 
 
 
-    useEffect(()=>{
-        if(Rerender.current)
-        {
-            console.log('rerender');
-
-            Rerender.current=false;
-            setStormRender(StormData.current);
-        }
-    })
 
     const StormDisplay = (id)=>{
-        console.log(StormRender);
         StormData.current[id].active=!StormData.current[id].active;
-        Rerender.current=true;
         setStormRender(StormData.current);
+        countState.current=countState.current+1;
+        setGoogleKey(countState.current);
 
     };
+    const MarkerDisplay = (id)=>{
+        MarkerList.current[id].active=!MarkerList.current[id].active;
+        setLocationUser(MarkerList.current);
+        countState.current=countState.current+1;
+        setGoogleKey(countState.current);
 
+    };
     const addMark = useCallback((ar) => {
+        console.log(ar,GoogleKey);
         setLocationUser(ar);
+        countState.current=countState.current+1;
+        setGoogleKey(countState.current);
+
     },[])
 
 
@@ -110,8 +119,18 @@ function Home() {
                 <FaIcon.FaMapMarkerAlt size={20} className={cx('icon')}/>
                 <div className={cx('itemwrapper')} > 
                     <div className={cx('button')}> Marker List </div>
-                    <div className={cx('stormlist')}>
-
+                    <div className={cx('stormlist')  }>
+                        {locationUser.map((item,index)=><Item
+                                                        name={index}
+                                                        detail={item.position.lat.toFixed(4)+" "+item.position.lng.toFixed(4)} 
+                                                        key={index}
+                                                        gg={GoogleKey}
+                                                        location={item.position} 
+                                                        onLocationClick={navigate}
+                                                        active={item.active}
+                                                        onNameClick={MarkerDisplay}
+                                                        stormID={index}
+                                                        />)}
 
                     </div>
                   </div>
@@ -119,7 +138,12 @@ function Home() {
             </div>
 
             <div className={cx('map-container')} >
-                <MapLo key={"AIzaSyCZ-1P31RBKjlgL1UA2SYJ1KypcCg1Pdqs"} className={cx('map')} StormData={StormRender} locationUser={locationUser} addMark ={addMark} setMapRef={setMapRef}/>
+                <MapLo  key={"AIzaSyCZ-1P31RBKjlgL1UA2SYJ1KypcCg1Pdqs"}
+                        className={cx('map')} 
+                        AllStormData={StormRender} 
+                        locationUser={locationUser} 
+                        addMark ={addMark} 
+                        setMapRef={setMapRef}/>
             </div>
         </div>
     );
