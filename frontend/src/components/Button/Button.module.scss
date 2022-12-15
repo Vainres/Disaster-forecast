@@ -60,6 +60,16 @@
     }
 }
 
+.warns {
+    color: white;
+    border: none;
+    background-color: #ffc107;
+    &:hover {
+        background-color: #e0a800;
+        border: yellow solid 1px;
+    }
+}
+
 .fix {
     color: white;
     border: none;
