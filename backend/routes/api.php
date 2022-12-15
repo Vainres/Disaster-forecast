@@ -47,6 +47,7 @@ Route::middleware(['checktoken', 'checkadmin'])->group(function () {
     Route::post('admin/deleteadmin', [AdminController::class, 'DeleteID']);
     Route::post('admin/add', [AdminController::class, 'AddAdmin']);
     Route::resource('/admin/storm', StormController::class);
+    Route::get('/admin/stormfillter', [StormController::class, 'filters']);
     Route::resource('/admin/disastertime', DisastertimeController::class);
     Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
     Route::post('admin/changepassword/changePassword', [UserController::class, 'ChangePassword']);
