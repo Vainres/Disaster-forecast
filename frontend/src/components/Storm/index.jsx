@@ -16,18 +16,17 @@ export default function Storm({storm,name}){
                                                                                                       scaledSize: new window.google.maps.Size(30, 30)}}>
               {displayDetail && <InfoWindow position={storm.position}>
                 <span>
-                  {name}
+                  Bão: {name}
+                  <br/>
+                  Vị trí: {storm.country}
+                  <br/>
+                  Cấp độ: {storm.level}
+                  <br/>
 
-                  {storm.label}
+                  Ngày/giờ: {storm.Time}
                 </span>
               </InfoWindow>}
             </MarkerF>
-            {/* {
-                storm.orbit.map((data,index)=>{
-                                                return <Circle center={storm.position} 
-                                                              radius={data.radius} 
-                                                              options={Options[storm.orbit.length-index-1]}/>})
-            } */}
 
         </div>
     );

@@ -9,19 +9,25 @@ export default function Marker({marker,AllStormData=[]})
         let listInside =[];
         AllStormData.map((storm)=>
             {
-              return storm.data.map((eye,ind)=>
+              return storm.DisasterTime.map((eye,ind)=>
               {
-                if(ind+1<storm.data.length)
+                if(ind+1<storm.DisasterTime.length)
                 {
-                  return eye.orbit.map((data,index)=>
+                  let type=0
+                  return eye.Orbit.map((data,index)=>
                   {
-                    let angl=angleCal(eye,storm.data[ind+1]);
-                    let arr1 = drawCircle(eye.position,data.radius/1609.344,-1,angl,64);
-                    let arr2 = drawCircle(storm.data[ind+1].position,storm.data[ind+1].orbit[index].radius/1609.344,1,angl,64);
+                    let angl=angleCal(eye,storm.DisasterTime[ind+1]);
+                    let arr1 = drawCircle(eye.position,data.range/1609.344,-1,angl,64);
+                    let arr2 = drawCircle(storm.DisasterTime[ind+1].position,
+                                          storm.DisasterTime[ind+1].Orbit[index].range/1609.344,1,angl,64);
                     let fin =[...arr1,...arr2.reverse()];
                     let bermudaTriangle = new window.google.maps.Polygon({path:fin});
+
                     if(window.google.maps.geometry.poly.containsLocation(convertToLatLng(marker.point_id),bermudaTriangle))
-                      listInside.push({orbit:data,eye:eye,storm:storm});
+                      if(type<data.type){
+                        listInside.push({Orbit:data,eye:eye,storm:storm});
+                        type=data.type
+                      }
                   })
                 }
               })
@@ -36,11 +42,14 @@ export default function Marker({marker,AllStormData=[]})
                                                         onCloseClick={()=> setDisplayInfo(false)} >
                     <div>
                         <h3 style={{textAlign:"center"}}>{marker.namelocation}</h3>
-                        {convertToLatLng(marker.point_id).lat.toFixed(4)}:{convertToLatLng(marker.point_id).lng.toFixed(4)}<br/>
+                        <p style={{textAlign:"center"}}>{convertToLatLng(marker.point_id).lat.toFixed(4)}:{convertToLatLng(marker.point_id).lng.toFixed(4)}</p>
+                        <br/>
 
                         {
-                        listStormInside.length>0&&
-                            <div>{listStormInside[0].orbit.radius}</div>
+                        listStormInside.length>0&&listStormInside.map((stormIn)=><div>
+                            <div>Vị trí này nằm trong bão {stormIn.storm.name}</div>
+                            <div>Vị trí {AlertMessage[Number(stormIn.Orbit.type)-1]}</div>{console.log('type',Number(stormIn.Orbit)-1)}
+                            </div>)
                         }
                     </div>
                     </InfoWindow>}
@@ -53,3 +62,6 @@ export default function Marker({marker,AllStormData=[]})
         </div>
     );
 }
+
+
+const AlertMessage =['Có ảnh hưởng','Nguy hiểm','Cực kỳ nguy hiểm'];

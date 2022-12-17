@@ -5,7 +5,6 @@ import classNames from 'classnames/bind';
 import FullStorm from '../../components/FullStorm';
 import Marker from '../../components/Marker';
 import Popup from "reactjs-popup";
-import { drawCircle,angleCal } from '../../components/helper';
 const cx = classNames.bind(styles);
 
 export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapRef=()=>{},center={lat:0,lng:0}}) {
@@ -36,29 +35,6 @@ export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapR
         close(onc);
         setRightClickLocation(null);
     })
-  const fetchDirection = useCallback((currentPosition) => {
-      let listInside =[];
-      AllStormData.map((storm)=>
-          {
-            return storm.data.map((eye,ind)=>
-            {
-              if(ind+1<storm.data.length)
-              {
-                return eye.orbit.map((data,index)=>
-                {
-                  let angl=angleCal(eye,storm.data[ind+1]);
-                  let arr1 = drawCircle(eye.position,data.radius/1609.344,-1,angl,64);
-                  let arr2 = drawCircle(storm.data[ind+1].position,storm.data[ind+1].orbit[index].radius/1609.344,1,angl,64);
-                  let fin =[...arr1,...arr2.reverse()];
-                  var bermudaTriangle = new window.google.maps.Polygon({path:fin});
-                  if(window.google.maps.geometry.poly.containsLocation(currentPosition,bermudaTriangle))
-                    listInside.push({orbit:data,eye:eye,storm:storm});
-                })
-              }
-            })
-          })
-      console.log(listInside);
-    },[])
 
     const onLoad = useCallback((map) =>  {  mapRef.current = map;
                                             console.log('mapref',mapRef);
