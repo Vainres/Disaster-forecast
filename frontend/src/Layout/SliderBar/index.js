@@ -1,11 +1,18 @@
 import { faGear, faInfoCircle, faPen, faRightToBracket, faShieldVirus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './sliderbar.scss';
 const cx = classNames.bind(styles);
 
 function SliderBarProfile(props) {
+    const navigation = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem('username');
+        localStorage.removeItem('token');
+        document.getElementById('backlogin').click();
+        return navigation('/login');
+    };
     return (
         <div className={cx('wapper')}>
             <div className={cx('welcome')}>
@@ -28,10 +35,11 @@ function SliderBarProfile(props) {
                     <FontAwesomeIcon icon={faShieldVirus}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Đổi mật khẩu</span>
                 </Link>
-                <Link to="/login" className={cx('btn_logout')}>
+                <Link onClick={handleLogout} to={'/login'} className={cx('btn_logout')}>
                     <FontAwesomeIcon icon={faRightToBracket}></FontAwesomeIcon>
                     <span className={cx('btn_logout_text')}>Đăng xuất</span>
                 </Link>
+                <Link id="backlogin" to={'/login'} />
             </div>
         </div>
     );
