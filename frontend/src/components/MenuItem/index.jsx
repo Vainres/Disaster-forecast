@@ -16,6 +16,7 @@ export default function Item({name,detail,location,onLocationClick=()=>{},active
         onNameClick(stormID);
         setActiveItem(!activeItem);
     }
+    console.log('it',name);
     return (
             <div className={cx('item')}>
                 <div className={cln} onClick={handleClickItem}>

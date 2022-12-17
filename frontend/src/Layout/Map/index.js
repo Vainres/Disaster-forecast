@@ -4,17 +4,14 @@ import styles from './Map.module.scss';
 import classNames from 'classnames/bind';
 import FullStorm from '../../components/FullStorm';
 import Marker from '../../components/Marker';
-
+import Popup from "reactjs-popup";
 import { drawCircle,angleCal } from '../../components/helper';
 const cx = classNames.bind(styles);
 
-export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapRef=()=>{},}) {
+export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapRef=()=>{},center={lat:0,lng:0}}) {
 
-    
     const mapRef = useRef();
-    const [markerList,setMarkerList] = useState(locationUser);
     const [rightClickLocation,setRightClickLocation] = useState(null);
-
     const [directions,setDirections] = useState();
     const containerStyle = useMemo(() => ({
         width: '100%',
@@ -29,14 +26,16 @@ export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapR
         }),
         []
       );
-    const onMark = useCallback(() => {
-        const subLi = markerList;
-        subLi.push(rightClickLocation);
-        console.log(subLi);
-        addMark(subLi)
+    const onMark = useCallback((onc,close) => {
+        let textName=document.getElementById("markerInputField").value;
+        let newMarker = rightClickLocation;
+        newMarker.name=textName;
+
+        console.log(newMarker);
+        addMark(newMarker);
+        close(onc);
         setRightClickLocation(null);
     })
-  
   const fetchDirection = useCallback((currentPosition) => {
       let listInside =[];
       AllStormData.map((storm)=>
@@ -69,31 +68,45 @@ export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapR
         <div className={cx('wrapper')}>
             <GoogleMap
                 zoom={8}
-                center={locationUser[0].position}
+                center={center}
                 mapContainerStyle={containerStyle}
                 options = {options}
                 onLoad={onLoad}
-                onRightClick={(e)=>{setRightClickLocation({position:{lat:e.latLng.lat() ,lng:e.latLng.lng()},active:true})}}
+                onRightClick={(e)=>{setRightClickLocation({point:{lat:e.latLng.lat() ,long:e.latLng.lng(),lng:e.latLng.lng()},name:'New marker'})}}
             > 
                 {rightClickLocation&& <InfoWindow   options={{backgroundColor:'black'}}
-                                                    position={rightClickLocation.position} 
+                                                    position={rightClickLocation.point} 
                                                     onCloseClick={()=> setRightClickLocation(null)} >
                   <div>
-                    {rightClickLocation.position.lat.toFixed(4)}-{rightClickLocation.position.lng.toFixed(4)}<br/>
-                    <button className={cx('infomenu')} style={{width:'100%'}}
-                    onClick={onMark}>Mark this</button>
+                    {rightClickLocation.point.lat.toFixed(4)}-{rightClickLocation.point.long.toFixed(4)}<br/>
+                    <Popup modal trigger={<button className={cx('infomenu')} >Mark this</button>}>
+                      {(close)=>
+
+                              <div className={cx("cookiesContent")} id="cookiesPopup">
+                                <button className={cx("close")} onClick={close}>✖</button>
+                                <label >Marker Name</label>
+
+                                <input type="input" className={cx("form__field")} placeholder="New Marker" 
+                                  id='markerInputField' defaultValue='New Marker' required />
+                                <button  className={cx("accept")} onClick={(onc)=>{onMark(onc,close)}}>Add</button>
+
+                              </div>
+                      }
+                    </Popup>
+
                   </div>
                 </InfoWindow>}
 
                 {directions && <Polyline path={directions}/> }
 
-                {markerList.map((marker,id)=>{  if(!marker.active) return;
-                                                return <Marker marker={marker} AllStormData={AllStormData}
+                {locationUser.map((marker,id)=>{
+                                                if(!marker.active) return;
+                                                return <Marker marker={marker} key={id} AllStormData={AllStormData}
                                                         />  })}
                                                         
 
                 {AllStormData.map((storm,keyID) => { if(!storm.active) return;
-                                                    return <FullStorm StormData={storm}/>})
+                                                    return <FullStorm  key={keyID} StormData={storm}/>})
                 }
             </GoogleMap>
 

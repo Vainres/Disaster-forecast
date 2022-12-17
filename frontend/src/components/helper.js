@@ -33,3 +33,11 @@ export function angleCal(EyeA,EyeB)
 
     return angl;
 }
+
+export function convertToLatLng(point)
+{
+    return {
+        lat:point.X,
+        lng:point.Y
+    }
+}

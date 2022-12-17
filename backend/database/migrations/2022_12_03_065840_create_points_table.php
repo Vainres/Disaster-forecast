@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('points', function (Blueprint $table) {
             $table->increments('id');
-            $table->point('point');
+            $table->point('point')->nullable();;
             $table->timestamps();
         });
     }

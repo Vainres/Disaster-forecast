@@ -36,6 +36,8 @@ Route::middleware(['checktoken'])->group(function () {
         }
     );
     Route::get('userinfo', [UserController::class, 'GetUserInfo']);
+    Route::get('user/location', [UserController::class, 'UserLocation']);
+
     Route::post('user/addlocation', [UserController::class, 'UserAddLocation']);
     Route::resource('point', PointController::class);
 });

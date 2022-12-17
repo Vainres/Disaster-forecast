@@ -9,9 +9,10 @@ import ReactDatePicker from '../../components/ReactDatePicker'
 import * as FaIcon from 'react-icons/fa'
 import * as BsIcon from 'react-icons/bs'
 import * as AiIcon from 'react-icons/ai'
+import Request from '~/utils/requests';
+import { drawCircle,angleCal,convertToLatLng} from '../../components/helper';
 
 import Item from '../../components/MenuItem'
-
 
 const cx = classNames.bind(styles);
 
@@ -38,13 +39,31 @@ function Home() {
 
 
     navigator.geolocation.getCurrentPosition(getLocation);
-    const MarkerList = useRef([{    position:{   
+    const MarkerList = useRef([]);
+    const center = useRef({   
                                                 lat: Number(localStorage.getItem('lat')),
                                                 lng: Number(localStorage.getItem('long'))
-                                            },
-                                    active:true}])
-    const [locationUser,setLocationUser] = useState(MarkerList.current);
-    
+                                            })
+    const request = new Request();
+
+    const [locationUser,setLocationUser] = useState([]);
+    useEffect(() => {
+        var headerdata = {
+            token: localStorage.getItem('token'),
+        };
+        console.log(headerdata);
+        console.log(Request);
+        request.Get('user/location',[],(res) => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    MarkerList.current=res.data.data.map(data=>({...data,active:true}));
+                    setLocationUser(MarkerList.current);
+                } else {
+                }
+            });
+
+        console.log(locationUser);
+    }, []);
     const StormData = useRef(myData.map( data => ({...data,active:false})));
     const [StormRender,setStormRender] = useState(StormData.current);
     const countState = useRef(0);
@@ -75,7 +94,19 @@ function Home() {
     };
     const addMark = useCallback((ar) => {
         console.log(ar,GoogleKey);
-        setLocationUser(ar);
+        request.Post('user/addlocation',ar,(res) => {
+                if (res.status === 201) {
+                    console.log('response',res.data);
+                    request.Get('user/location',[],(res) => {
+                            if (res.status === 200) { 
+                                MarkerList.current=res.data.data.map(data=>({...data,active:true}));
+                                setLocationUser(MarkerList.current);
+                            } else {
+                            }
+                        });
+                } else {
+                }
+            });
         countState.current=countState.current+1;
         setGoogleKey(countState.current);
 
@@ -121,11 +152,11 @@ function Home() {
                     <div className={cx('button')}> Marker List </div>
                     <div className={cx('stormlist')  }>
                         {locationUser.map((item,index)=><Item
-                                                        name={index}
-                                                        detail={item.position.lat.toFixed(4)+" "+item.position.lng.toFixed(4)} 
+                                                        name={item.namelocation}
+                                                        detail={item.point_id.X.toFixed(4)+" "+item.point_id.Y.toFixed(4)} 
                                                         key={index}
                                                         gg={GoogleKey}
-                                                        location={item.position} 
+                                                        location={convertToLatLng(item.point_id)} 
                                                         onLocationClick={navigate}
                                                         active={item.active}
                                                         onNameClick={MarkerDisplay}
@@ -133,7 +164,7 @@ function Home() {
                                                         />)}
 
                     </div>
-                  </div>
+                </div>
 
             </div>
 
@@ -143,7 +174,8 @@ function Home() {
                         AllStormData={StormRender} 
                         locationUser={locationUser} 
                         addMark ={addMark} 
-                        setMapRef={setMapRef}/>
+                        setMapRef={setMapRef}
+                        center={center.current}/>
             </div>
         </div>
     );

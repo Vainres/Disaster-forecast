@@ -82,4 +82,23 @@ class UserController extends Controller
 
         ], 201);
     }
+
+    function UserLocation(Request $request)
+    {
+        $token = $request->header('token');
+        $sessionUser = SessionUser::where('token', $token)->first();
+        $user = User::where('id', $sessionUser->user_id)->first();
+        $userLocation = Location::where('user_id',$user->id)->get();
+        foreach ($userLocation as $key =>$value)
+        {
+            $POINT = Point::where('id',$userLocation[$key]['point_id'])->first();
+            $userLocation[$key]['point_id']=$POINT;
+        }
+        return response()->json([
+            'data' => $userLocation,
+            'code' => '200',
+            'result' => 0
+
+        ], 200);
+    }
 }
