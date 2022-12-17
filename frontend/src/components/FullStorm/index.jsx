@@ -18,10 +18,10 @@ export default function FullStorm({StormData})
 
     const aPath = useCallback((EyeA,EyeB)=>{
         let angl=angleCal(EyeA,EyeB);
-        const lon = EyeA.orbit.length;
-        return EyeA.orbit.map((data,index)=>{
-            let arr1 = drawCircle(EyeA.position,EyeA.orbit[index].radius/1609.344,-1,angl);
-            let arr2 = drawCircle(EyeB.position,EyeB.orbit[index].radius/1609.344,1,angl);
+        const lon = EyeA.Orbit.length;
+        return EyeA.Orbit.map((data,index)=>{
+            let arr1 = drawCircle(EyeA.position,EyeA.Orbit[index].range/1609.344,-1,angl);
+            let arr2 = drawCircle(EyeB.position,EyeB.Orbit[index].range/1609.344,1,angl);
             let fin =[...arr1,...arr2.reverse()];
             return <Polygon paths={fin}  options={Options[lon-index-1]}/>
         });
@@ -31,10 +31,10 @@ export default function FullStorm({StormData})
     
     return(<div>
         {
-            StormData.data.map((data,index)=>{
-                if(index<StormData.data.length-1){
+            StormData.DisasterTime.map((data,index)=>{
+                if(index<StormData.DisasterTime.length-1){
                     return <div>
-                        {aPath(data,StormData.data[index+1])}
+                        {aPath(data,StormData.DisasterTime[index+1])}
                     </div>;
                 }
             })
@@ -42,7 +42,7 @@ export default function FullStorm({StormData})
             
         }
         {
-            StormData.data.map((data,index)=>{
+            StormData.DisasterTime.map((data,index)=>{
                     return <Storm key={'Storm'+index} storm={data} name={StormData.name}/>})
         }
     </div>);

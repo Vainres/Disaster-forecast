@@ -101,4 +101,28 @@ class UserController extends Controller
 
         ], 200);
     }
+
+    function UserDeleteLocation(Request $request)
+    {
+        $userLocation = Location::find($request->id);
+        if($userLocation==null)
+            return response()->json([
+                'data' => 'Id not exist',
+                'code' => '200',
+                'result' => 0
+
+            ], 401);
+        $tpoint = Point::find($userLocation->point_id);
+        $deletedLocation = $userLocation->delete();
+        $deletedPoint = $tpoint->delete();
+
+        if($deletedLocation)
+            return response()->json([
+                'data' => $deletedPoint,
+                'code' => '200',
+                'result' => 0
+
+            ], 201);
+
+    }
 }

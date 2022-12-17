@@ -6,7 +6,14 @@
     height: 50px;
     background-color: #14161a;
   }
-
+.itemMarker{
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 40px 40px;
+  width: 210px;
+  height: 50px;
+  background-color: #14161a;
+}
   .active{
   background-color: #343434;
   }
