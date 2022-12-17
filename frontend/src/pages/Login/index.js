@@ -44,6 +44,7 @@ const Login = () => {
                         // return <Redirect to="/" />;
 
                         localStorage.setItem('token', res.data.data.token);
+                        localStorage.setItem('user_id', res.data.data.user_id);
 
                         navigate('/profile');
                     }

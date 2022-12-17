@@ -9,7 +9,7 @@ function SliderBarProfile(props) {
     return (
         <div className={cx('wapper')}>
             <div className={cx('welcome')}>
-                Xin Chào, <span> Nghĩa</span>
+                Xin Chào, <span> {localStorage.getItem('username')}</span>
             </div>
             <div className={cx('btn_barlist')}>
                 <Link to={'/profile'} className={cx(props.name === '1' ? 'btn_bar active' : 'btn_bar')}>

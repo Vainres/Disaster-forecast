@@ -42,18 +42,23 @@ Route::middleware(['checktoken'])->group(function () {
 
 Route::middleware(['checktoken', 'checkadmin'])->group(function () {
 
-    Route::get('admin/getuserif', [AdminController::class, 'FindID']);
     Route::post('admin/updateif', [AdminController::class, 'UpdateIF']);
-    Route::post('admin/deleteadmin', [AdminController::class, 'DeleteID']);
+    Route::delete('admin/deleteadmin', [AdminController::class, 'DeleteID']);
     Route::post('admin/add', [AdminController::class, 'AddAdmin']);
     Route::resource('/admin/storm', StormController::class);
-    Route::get('/admin/stormfillter', [StormController::class, 'filters']);
     Route::resource('/admin/disastertime', DisastertimeController::class);
     Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
+    Route::get('admin/listadmin', [AdminController::class, 'GetListAdmin']);
+    Route::get('admin/listuser', [AdminController::class, 'GetListUser']);
+});
+Route::middleware(['checktoken'])->group(function () {
+
+    Route::get('admin/getuserif', [AdminController::class, 'FindID']);
+    Route::get('/admin/stormfillter', [StormController::class, 'filters']);
     Route::post('admin/changepassword/changePassword', [UserController::class, 'ChangePassword']);
 });
 
-Route::get('admin/listadmin', [AdminController::class, 'GetListAdmin']);
+
 Route::post('register', [RegisterController::class, 'Register']);
 // api create token
 Route::post('login', [LoginController::class, 'Login']);

@@ -24,7 +24,9 @@ function AddDisasterTime({ close, funsub = () => {} }) {
         setinfo((pre) => ({ disasterID: id, ...pre, ...a }));
     }, [inputList]);
     const AddNewDisaster = () => {
-        request.Post('admin/disastertime', info, () => {});
+        request.Post('admin/disastertime', info, (res) => {
+            console.log(res);
+        });
         console.log(info);
         setmsg('Đã Thêm');
     };

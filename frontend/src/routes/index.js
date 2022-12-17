@@ -6,17 +6,19 @@ import Admin from '~/pages/AdminMainPage/Admin';
 import AddAdminPage from '~/pages/AddAdmin';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register';
+import Usermanagement from '~/pages/Usermanagement';
 
 //public routes
 const publicRoutes = [
-    { path: '/', component: Home },
-    { path: '/profile', component: Profile },
-    { path: '/editprofile', component: EditProfilepage },
-    { path: '/changepass', component: EditPasspage },
-    { path: '/admin', component: Admin },
-    { path: '/admin/add', component: AddAdminPage },
-    { path: '/login', component: Login },
-    { path: '/register', component: Register },
+    { path: '/', component: Home, Header: true },
+    { path: '/profile', component: Profile, Header: true },
+    { path: '/editprofile', component: EditProfilepage, Header: true },
+    { path: '/usermanagerment', component: Usermanagement, Header: true },
+    { path: '/changepass', component: EditPasspage, Header: true },
+    { path: '/admin', component: Admin, Header: true },
+    { path: '/admin/add', component: AddAdminPage, Header: true },
+    { path: '/login', component: Login, Header: false },
+    { path: '/register', component: Register, Header: false },
 ];
 
 const privateRoutes = [];

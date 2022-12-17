@@ -1,12 +1,35 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCircle, faHome, faMap, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCircle, faHome, faMap, faSearch, faToolbox, faUser } from '@fortawesome/free-solid-svg-icons';
 import LogoWebsite from '~/Layout/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Request from '~/utils/requests';
 
+import { useState, useEffect } from 'react';
 const cx = classNames.bind(styles);
 function Header() {
+    const [dataUser, setDataUser] = useState(0);
+    useEffect(() => {
+        request.Get(`http://127.0.0.1:8000/api/admin/getuserif?id=${id}`, [], (res) => {
+            console.log('Trả về nè:', res);
+            setDataUser({ ...res.data.data });
+            let username = res.data.data.name;
+            username = username.split(' ');
+            username = username[username.length - 1];
+            console.log('ACS', username);
+            localStorage.setItem('username', username);
+        });
+    }, []);
+    const navigate = useNavigate();
+    const request = new Request();
+    const id = localStorage.getItem('user_id');
+    if (id == null) {
+        alert('Thao Tác Lỗi!! Hãy Đăng Nhập lại.');
+        return navigate('/login');
+    }
+
+    console.log('sisis', dataUser);
     return (
         <header className={cx('wapper')}>
             <div className={cx('inner')}>
@@ -24,9 +47,15 @@ function Header() {
                     <Link to={'/'} className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faHome} />
                     </Link>
-                    <Link to={'/admin'} className={cx('headerbtn')}>
-                        <FontAwesomeIcon icon={faMap} />
-                    </Link>
+
+                    {dataUser.isUser === 0 ? (
+                        <Link to={'/admin'} className={cx('headerbtn')}>
+                            <FontAwesomeIcon icon={faToolbox} />
+                        </Link>
+                    ) : (
+                        ''
+                    )}
+
                     <button className={cx('headerbtn')}>
                         <FontAwesomeIcon icon={faBell} />
                         <span className={cx('alertheader')}>
