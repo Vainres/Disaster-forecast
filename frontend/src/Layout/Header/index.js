@@ -70,8 +70,13 @@ function Header() {
                             5555 666
                         </div>
                     </button>
-                    <Link to="/Profile" className={cx('headerbtn')}>
+                    <Link
+                        to={localStorage.getItem('username') != null ? '/Profile' : '/login'}
+                        className={cx('headerbtn')}
+                    >
                         <FontAwesomeIcon icon={faUser} />
+                        {'  '}
+                        {localStorage.getItem('username')}
                     </Link>
                 </div>
             </div>
