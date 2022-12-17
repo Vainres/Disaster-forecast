@@ -21,7 +21,7 @@ export default class Request {
     }
     Post(path = '', values = [], handleFun) {
         this.request
-            .post(path,values)
+            .post(path, values)
             .then((res) => {
                 handleFun(res);
             })
