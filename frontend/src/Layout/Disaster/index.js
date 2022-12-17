@@ -10,10 +10,21 @@ import AddDisaster from '~/Layout/AddDisaster/AddDisaster';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import ThreeBtn from '~/components/ThreeBtn/ThreeBtn';
+import Alertpopup from '~/Layout/Alertpopup/Alertpopup';
 import AddDisasterTime from '~/Layout/AddDisasterTime/AddDisasterTime';
+
 const cx = classNames.bind(styles);
 
 function DisasterList(props) {
+    const [status, setstatus] = useState('Lưu');
+    const Delete = () => {
+        const id_delete = localStorage.getItem('id_delete');
+        request.Delete(`admin/storm/${id_delete}`, () => {
+            setstatus('Lưu ' + Math.round());
+        });
+
+        DeleteDone();
+    };
     const datacol = [
         { field: 'id', rowDrag: true },
         {
@@ -31,13 +42,32 @@ function DisasterList(props) {
         { field: 'Actions', cellRenderer: ThreeBtn },
     ];
     const [datarow, setDatarow] = useState([]);
-    const request = new Request();
+    let request = new Request();
     useEffect(() => {
         request.Get('/admin/storm', [], (res) => {
             console.log(res.data);
             setDatarow(res.data.data);
         });
-    }, []);
+    }, [status]);
+    const [msgdel, setmsgdel] = useState({
+        msg: 'Bạn có chắc chắn muốn xóa? Dữ liệu sẽ không được khôi phục khi đã xóa',
+        deleted: false,
+    });
+    const DeleteDone = () => {
+        setstatus('Lưu ' + Math.round());
+        setmsgdel({ msg: 'Đã xóa thành công', deleted: true });
+    };
+    const resettitledel = () => {
+        document.getElementById('close').click();
+        setstatus('Lưu ' + Math.round());
+        setmsgdel({
+            msg: 'Bạn có chắc chắn muốn xóa? Dữ liệu sẽ không được khôi phục khi đã xóa',
+            deleted: false,
+        });
+    };
+    const reload = (msg) => {
+        setstatus(msg + 'Lưu ' + Math.round());
+    };
     return (
         <div className={cx('wapper')}>
             <h2 className={cx('title')}>Danh sách thiên tai</h2>
@@ -60,7 +90,7 @@ function DisasterList(props) {
                     {(close) => (
                         <div>
                             <div className={cx('curtain')}></div>
-                            <AddDisaster close={close} />
+                            <AddDisaster close={close} reload={reload} />
                         </div>
                     )}
                 </Popup>
@@ -73,7 +103,7 @@ function DisasterList(props) {
                     {(close) => (
                         <div>
                             <div className={cx('curtain')}></div>
-                            <AddDisaster close={close} />
+                            <AddDisaster close={close} reload={reload} />
                         </div>
                     )}
                 </Popup>
@@ -91,6 +121,20 @@ function DisasterList(props) {
                     )}
                 </Popup>
             </div>
+            <Popup
+                className={cx('popupcontain')}
+                modal
+                trigger={<button className={cx('hidden')} id="showpopup_alert"></button>}
+                position="right center"
+            >
+                {(close) => (
+                    <div>
+                        {/* <div className={cx('curtain')}></div>
+                            <AddAdmin close={close} /> */}
+                        <Alertpopup close={close} FunDel={Delete} FunDelDone={resettitledel} message={msgdel} />
+                    </div>
+                )}
+            </Popup>
             <TableDrag datacol={datacol} datarow={datarow} />
         </div>
     );
