@@ -8,21 +8,57 @@
                         "lng": 105.83416
                     },
                     "label": "position 1",
-                    "radius1":20000,
-                    "radius2":50000,
-                    "radius3":150000
+                    "orbit":[
+                        {"radius":10000},
+                        {"radius":20000},
+                        {"radius":50000}
+
+                    ]
                     
                 },
                 {
                     "position" :{
                         "lat": 12.027763,
-                        "lng": 105.83416
+                        "lng": 104.83416
+                    },
+                    "label": "position 2",
+                    "orbit":[
+                        {"radius":15000},
+                        {"radius":30000},
+                        {"radius":80000}
+
+                    ]
+                    
+
+                },
+                {
+                    "position" :{
+                        "lat": 13.027763,
+                        "lng": 102.83416
                     },
                     "label": "position 3",
-                    "radius1":15000,
-                    "radius2":30000,
-                    "radius3":80000
+                    "orbit":[
+                        {"radius":18000},
+                        {"radius":35000},
+                        {"radius":100000}
 
+                    ]
+                    
+
+                },
+                {
+                    "position" :{
+                        "lat": 15.527763,
+                        "lng": 101.83416
+                    },
+                    "label": "position 4",
+                    "orbit":[
+                        {"radius":20000},
+                        {"radius":50000},
+                        {"radius":150000}
+
+                    ]
+                    
                 }
             ]
     },
@@ -36,9 +72,12 @@
                             "lng": 105.83416
                         },
                         "label": "position 1",
-                        "radius1":20000,
-                        "radius2":50000,
-                        "radius3":150000
+                        "orbit":[
+                            {"radius":20000},
+                            {"radius":50000},
+                            {"radius":150000}
+    
+                        ]
                         
                     },
                     {
@@ -47,9 +86,12 @@
                             "lng": 105.83416
                         },
                         "label": "position 3",
-                        "radius1":15000,
-                        "radius2":30000,
-                        "radius3":80000
+                        "orbit":[
+                            {"radius":15000},
+                            {"radius":30000},
+                            {"radius":80000}
+    
+                        ]
     
                     }
                 ]
