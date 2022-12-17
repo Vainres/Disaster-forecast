@@ -39,6 +39,8 @@ Route::middleware(['checktoken'])->group(function () {
     Route::get('user/location', [UserController::class, 'UserLocation']);
 
     Route::post('user/addlocation', [UserController::class, 'UserAddLocation']);
+    Route::post('user/deletelocation', [UserController::class, 'UserDeleteLocation']);
+
     Route::resource('point', PointController::class);
 });
 
@@ -64,3 +66,5 @@ Route::middleware(['checktoken'])->group(function () {
 Route::post('register', [RegisterController::class, 'Register']);
 // api create token
 Route::post('login', [LoginController::class, 'Login']);
+
+Route::post('/storm', [StormController::class, 'filters']);
