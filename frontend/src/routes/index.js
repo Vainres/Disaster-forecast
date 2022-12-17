@@ -7,6 +7,7 @@ import AddAdminPage from '~/pages/AddAdmin';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register';
 import Usermanagement from '~/pages/Usermanagement';
+import NotificationPage from '~/pages/Notification';
 
 //public routes
 const publicRoutes = [
@@ -19,6 +20,7 @@ const publicRoutes = [
     { path: '/admin/add', component: AddAdminPage, Header: true },
     { path: '/login', component: Login, Header: false },
     { path: '/register', component: Register, Header: false },
+    { path: '/admin/notification', component: NotificationPage, Header: true },
 ];
 
 const privateRoutes = [];

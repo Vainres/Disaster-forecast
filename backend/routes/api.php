@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DisastertimeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\StormController;
 use App\Models\DisasterTime;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
@@ -48,6 +50,7 @@ Route::middleware(['checktoken', 'checkadmin'])->group(function () {
     Route::delete('admin/deleteadmin', [AdminController::class, 'DeleteID']);
     Route::post('admin/add', [AdminController::class, 'AddAdmin']);
     Route::resource('/admin/storm', StormController::class);
+    Route::resource('/admin/noti', NotificationController::class);
     Route::resource('/admin/disastertime', DisastertimeController::class);
     Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
     Route::get('admin/listadmin', [AdminController::class, 'GetListAdmin']);

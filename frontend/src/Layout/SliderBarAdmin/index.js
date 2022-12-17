@@ -35,7 +35,7 @@ function SliderBarAdmin(props) {
                     <FontAwesomeIcon icon={faUsers}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Quản Lý Người Dùng</span>
                 </Link>
-                <Link className={cx(props.name === '4' ? 'btn_bar active' : 'btn_bar')}>
+                <Link to={'/admin/notification'} className={cx(props.name === '4' ? 'btn_bar active' : 'btn_bar')}>
                     <FontAwesomeIcon icon={faNoteSticky}></FontAwesomeIcon>
                     <span className={cx('btn_bar_name')}>Quản Lý Notification</span>
                 </Link>
