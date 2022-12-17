@@ -19,6 +19,17 @@ class AdminController extends Controller
 
         ], 200);
     }
+    function GetListUser(Request $request)
+    {
+        $user = User::where('isUser', 1)->get();
+        return response()->json([
+            'data' => $user,
+            'message' => "token expired",
+            'code' => '200'
+
+        ], 200);
+    }
+
     function FindID(Request $request)
     {
 

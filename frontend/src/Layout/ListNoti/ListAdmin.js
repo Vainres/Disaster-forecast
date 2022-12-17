@@ -11,24 +11,39 @@ import EditAdmin from '~/Layout/EditAdmin/EditAdmin';
 import { useState, useEffect } from 'react';
 import Request from '~/utils/requests';
 import Alertpopup from '~/Layout/Alertpopup/Alertpopup';
+import AddNoti from '~/Layout/AddNoti';
 const cx = classNames.bind(styles);
 
-function ListAddmin(props) {
+function ListNoti(props) {
     const [status, setstatus] = useState('Lưu');
     const datacol = [
         { field: 'id', rowDrag: true },
         {
-            field: 'name',
+            headerName: 'Tiêu Đề',
+            field: 'title',
         },
         {
-            field: 'email',
+            headerName: 'Nội dung',
+            field: 'content',
+        },
+        {
+            headerName: 'Đã đọc',
+            field: 'isread',
+        },
+        {
+            headerName: 'Đã qua',
+            field: 'ispass',
+        },
+        {
+            headerName: 'Đã qua',
+            field: 'ispass',
         },
         { field: 'Actions', cellRenderer: MutiButtonAd },
     ];
     let [datarow, setdatarow] = useState([]);
     const request = new Request();
     useEffect(() => {
-        request.Get('admin/listadmin', [], (res) => {
+        request.Get('/admin/noti', [], (res) => {
             if (res.status === 200) {
                 setdatarow(res.data.data);
             } else {
@@ -113,7 +128,7 @@ function ListAddmin(props) {
                     {(close) => (
                         <div>
                             <div className={cx('curtain')}></div>
-                            <AddAdmin close={close} funsub={setstatusafteradd} />
+                            <AddNoti close={close} funsub={setstatusafteradd} />
                         </div>
                     )}
                 </Popup>
@@ -137,4 +152,4 @@ function ListAddmin(props) {
     );
 }
 
-export default ListAddmin;
+export default ListNoti;
