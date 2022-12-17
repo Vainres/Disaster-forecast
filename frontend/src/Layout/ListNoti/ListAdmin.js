@@ -88,7 +88,7 @@ function ListNoti(props) {
     };
     return (
         <div className={cx('wapper')}>
-            <h2 className={cx('title')}>Danh sách Người Quản Trị</h2>
+            <h2 className={cx('title')}>Quản Lý Thông Báo</h2>
             <div className={cx('colum2')}>
                 <div className={cx('insertcolumn')}></div>
                 <Button
