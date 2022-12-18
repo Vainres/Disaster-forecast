@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCircle, faHome, faMap, faSearch, faUser,faExclamation,faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCircle, faHome, faMap, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
 import LogoWebsite from '~/Layout/Logo';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ function Header() {
                             <div className={cx('dropdown')}>
                                 <div className={cx('notify_item')}>
                                     <div className={cx('notify_icon_attention')}>
-                                        <FontAwesomeIcon icon={faExclamation}/>
+                                    <i class="fa-solid fa-exclamation"></i>
                                     </div>
                                     <div className={cx('notify_info')}>
 					                    <p>Stom on Timeline Share </p>
@@ -48,34 +48,7 @@ function Header() {
 			                    </div>
                                 <div className={cx('notify_item')}>
                                     <div className={cx('notify_icon_warning')}>
-                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
                                     </div>
                                     <div className={cx('notify_info')}>
 					                    <p>Stom is coming Timeline Share </p>
@@ -83,8 +56,33 @@ function Header() {
                                     </div>
 			                    </div>
 
-
-                               
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
                                 
                             </div>
                             
