@@ -9,19 +9,22 @@ function App() {
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;
-                        return (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={
-                                    <div>
-                                        <Header />
-                                        <Page />
-                                        <Footer />
-                                    </div>
-                                }
-                            />
+                        let Content = (
+                            <div>
+                                <Page />
+                                <Footer />
+                            </div>
                         );
+                        if (route.Header) {
+                            Content = (
+                                <div>
+                                    <Header />
+                                    <Page />
+                                    <Footer />
+                                </div>
+                            );
+                        }
+                        return <Route key={index} path={route.path} element={Content} />;
                     })}
                 </Routes>
             </div>

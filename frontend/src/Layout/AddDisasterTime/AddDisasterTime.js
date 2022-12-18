@@ -1,9 +1,9 @@
 import styles from './AddDisaster.module.scss';
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
-import request from '~/utils/request';
+import Request from '~/utils/requests';
 import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,27 +13,24 @@ import { fontSize } from '@mui/system';
 const cx = classNames.bind(styles);
 
 function AddDisasterTime({ close, funsub = () => {} }) {
-    const [info, setinfo] = useState({ name: '', time: '', level: '', country: '', lat: '', long: '' });
+    const [inputList, setinputList] = useState([{ range: '', windspeed: '', type: '' }]);
+    const [info, setinfo] = useState({});
     const [msg, setmsg] = useState('Thêm');
+    const request = new Request();
+    useEffect(() => {
+        const a = { listOrbits: inputList };
+        let id = localStorage.getItem('id_addchill');
+        console.log(a);
+        setinfo((pre) => ({ disasterID: id, ...pre, ...a }));
+    }, [inputList]);
     const AddNewDisaster = () => {
-        request
-            .post(
-                `admin/add?name=${info.name}&time=${info.time}&level=${info.level}
-            &country=${info.country}&lat=${info.lat}&long=${info.long}`,
-            )
-            .then((res) => {
-                if (res.data.code === '200') {
-                } else {
-                }
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        request.Post('admin/disastertime', info, (res) => {
+            console.log(res);
+        });
+        console.log(info);
         setmsg('Đã Thêm');
-        funsub(info.email);
     };
     // -------------------Tạo list chi tiết bão-------------
-    const [inputList, setinputList] = useState([{ range: '', windspeed: '', type: '' }]);
 
     const handleinputchange = (e, index) => {
         const { name, value } = e.target;
@@ -44,6 +41,7 @@ function AddDisasterTime({ close, funsub = () => {} }) {
     //---------------------Thêm list------------------
     const handleaddclick = () => {
         setinputList([...inputList, { range: '', windspeed: '', type: '' }]);
+        console.log(inputList);
     };
 
     //---------------------Xóa 1 list-------------------
@@ -62,7 +60,7 @@ function AddDisasterTime({ close, funsub = () => {} }) {
             <div className={cx('cxcontent')}>
                 <div className={cx('wapper')}>
                     {/* <h2 className={cx('title')}>Thêm Quản Trị</h2> */}
-                    <LocalizationProvider className={cx('padding10dt')} dateAdapter={AdapterDayjs}>
+                    {/* <LocalizationProvider className={cx('padding10dt')} dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                             className={cx('datetimepicker')}
                             label="Ngày:"
@@ -104,7 +102,17 @@ function AddDisasterTime({ close, funsub = () => {} }) {
                                 ></TextField>
                             )}
                         />
-                    </LocalizationProvider>
+                    </LocalizationProvider> */}
+                    <Input
+                        name="Time"
+                        title="Time"
+                        placeholder="Thời Điểm Hiện tại (Năm - Tháng - Ngày)"
+                        forpopup
+                        onChange={(e) => {
+                            setmsg('Thêm');
+                            setinfo((pre) => ({ ...pre, Time: e.target.value }));
+                        }}
+                    ></Input>
                     <Input
                         name="level"
                         title="Level"
@@ -132,7 +140,7 @@ function AddDisasterTime({ close, funsub = () => {} }) {
                         forpopup
                         onChange={(e) => {
                             setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, lat: e.target.value }));
+                            setinfo((pre) => ({ ...pre, point: { ...pre.point, lat: e.target.value } }));
                         }}
                     ></Input>
                     <Input
@@ -142,7 +150,7 @@ function AddDisasterTime({ close, funsub = () => {} }) {
                         forpopup
                         onChange={(e) => {
                             setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, long: e.target.value }));
+                            setinfo((pre) => ({ ...pre, point: { ...pre.point, long: e.target.value } }));
                         }}
                     ></Input>
 

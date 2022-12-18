@@ -2,10 +2,12 @@ import { faAngleRight, faInfo, faInfoCircle, faPlus, faTrash, faWrench } from '@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
+import Request from '~/utils/requests';
 import styles from './ThreeBtn.module.scss';
 const cx = classNames.bind(styles);
 
 function ThreeBtn(props) {
+    const request = new Request();
     const data = props.data;
     const handelfix = () => {
         document.getElementById('showpopup_edit').click();

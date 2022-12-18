@@ -13,7 +13,7 @@ import Request from '~/utils/requests';
 import Alertpopup from '~/Layout/Alertpopup/Alertpopup';
 const cx = classNames.bind(styles);
 
-function ListAddmin(props) {
+function ListUser(props) {
     const [status, setstatus] = useState('Lưu');
     const datacol = [
         { field: 'id', rowDrag: true },
@@ -25,13 +25,12 @@ function ListAddmin(props) {
         },
         { field: 'Actions', cellRenderer: MutiButtonAd },
     ];
-    let [datarow, setdatarow] = useState([]);
     const request = new Request();
+    let [datarow, setdatarow] = useState([]);
     useEffect(() => {
-        request.Get('admin/listadmin', [], (res) => {
+        request.Get('admin/listuser', [], (res) => {
             if (res.status === 200) {
                 setdatarow(res.data.data);
-            } else {
             }
         });
     }, [status]);
@@ -56,6 +55,7 @@ function ListAddmin(props) {
     const Delete = () => {
         const id_delete = localStorage.getItem('id_delete');
         request.Delete(`admin/deleteadmin?id=${id_delete}`, [], () => {});
+
         setstatus('Lưu ');
 
         DeleteDone();
@@ -73,10 +73,10 @@ function ListAddmin(props) {
     };
     return (
         <div className={cx('wapper')}>
-            <h2 className={cx('title')}>Danh sách Người Quản Trị</h2>
+            <h2 className={cx('title')}>Danh sách Người Dùng</h2>
             <div className={cx('colum2')}>
                 <div className={cx('insertcolumn')}></div>
-                <Button
+                {/* <Button
                     success
                     small
                     onClick={() => {
@@ -84,7 +84,7 @@ function ListAddmin(props) {
                     }}
                 >
                     Thêm
-                </Button>
+                </Button> */}
                 <Popup
                     className={cx('popupcontain')}
                     modal
@@ -137,4 +137,4 @@ function ListAddmin(props) {
     );
 }
 
-export default ListAddmin;
+export default ListUser;

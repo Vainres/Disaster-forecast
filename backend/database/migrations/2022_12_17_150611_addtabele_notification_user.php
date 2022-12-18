@@ -12,9 +12,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('points', function (Blueprint $table) {
-            $table->increments('id');
-            $table->point('point')->nullable();;
+        Schema::create('notification_user', function (Blueprint $table) {
+            $table->integer('user_id');
+            $table->integer('notifi_id');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('points');
+        //
     }
 };

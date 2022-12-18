@@ -1,9 +1,9 @@
 import styles from './AddDisaster.module.scss';
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
-import request from '~/utils/request';
+import Request from '~/utils/requests';
 import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,26 +12,26 @@ import { fontSize } from '@mui/system';
 
 const cx = classNames.bind(styles);
 
-function AddDisaster({ close, funsub = () => {} }) {
-    const [info, setinfo] = useState({ name: '', time: '', level: '', country: '', lat: '', long: '' });
+function AddDisaster({ close, funsub = () => {}, reload }) {
+    const [info, setinfo] = useState({});
     const [msg, setmsg] = useState('Thêm');
+    const request = new Request();
     const AddNewDisaster = () => {
-        request
-            .post(
-                `admin/add?name=${info.name}&time=${info.time}&level=${info.level}
-            &country=${info.country}&lat=${info.lat}&long=${info.long}`,
-            )
-            .then((res) => {
-                if (res.data.code === '200') {
-                } else {
-                }
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        console.log('post', info);
+        request.Post('admin/storm', info, (res) => {
+            console.log(res);
+            reload('thay');
+        });
+
         setmsg('Đã Thêm');
         funsub(info.email);
     };
+    useEffect(() => {
+        setmsg('Thêm');
+    }, [info]);
+    useEffect(() => {
+        console.log(info);
+    }, [info]);
     // -------------------Tạo list chi tiết bão-------------
     const [inputList, setinputList] = useState([{ range: '', windspeed: '', type: '' }]);
 
@@ -93,12 +93,12 @@ function AddDisaster({ close, funsub = () => {} }) {
                             setinfo((pre) => ({ ...pre, type: e.target.value }));
                         }}
                     ></Input>
-                    <LocalizationProvider className={cx('padding10dt')} dateAdapter={AdapterDayjs}>
+                    {/* <LocalizationProvider className={cx('padding10dt')} dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                             className={cx('datetimepicker')}
                             label="Start Time"
                             onChange={(value) => {
-                                console.log(value);
+                                setinfo((pre) => ({ ...pre, startTime: `${value.Y}-${value.M}-${value.D}` }));
                             }}
                             renderInput={(params) => (
                                 <TextField
@@ -138,7 +138,7 @@ function AddDisaster({ close, funsub = () => {} }) {
                         <DateTimePicker
                             label="EndTime"
                             onChange={(value) => {
-                                console.log(value);
+                                setinfo((pre) => ({ ...pre, endTime: value }));
                             }}
                             className={cx('datetimepicker')}
                             renderInput={(params) => (
@@ -176,7 +176,27 @@ function AddDisaster({ close, funsub = () => {} }) {
                                 ></TextField>
                             )}
                         />
-                    </LocalizationProvider>
+                    </LocalizationProvider> */}
+                    <Input
+                        name="startTime"
+                        title="startTime"
+                        placeholder="Nhập dưới dạng Năm - Tháng - Ngày"
+                        forpopup
+                        onChange={(e) => {
+                            setmsg('Thêm');
+                            setinfo((pre) => ({ ...pre, startTime: e.target.value }));
+                        }}
+                    ></Input>
+                    <Input
+                        name="endTime"
+                        title="endTime"
+                        placeholder="Nhập dưới dạng Năm - Tháng - Ngày"
+                        forpopup
+                        onChange={(e) => {
+                            setmsg('Thêm');
+                            setinfo((pre) => ({ ...pre, endTime: e.target.value }));
+                        }}
+                    ></Input>
                     <label>Điểm Bắt Đầu:</label>
                     <Input
                         name="lat"
@@ -185,7 +205,7 @@ function AddDisaster({ close, funsub = () => {} }) {
                         forpopup
                         onChange={(e) => {
                             setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, lat: e.target.value }));
+                            setinfo((pre) => ({ ...pre, pointstart: { ...pre.pointstart, lat: e.target.value } }));
                         }}
                     ></Input>
                     <Input
@@ -195,7 +215,7 @@ function AddDisaster({ close, funsub = () => {} }) {
                         forpopup
                         onChange={(e) => {
                             setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, long: e.target.value }));
+                            setinfo((pre) => ({ ...pre, pointstart: { ...pre.pointstart, long: e.target.value } }));
                         }}
                     ></Input>
                     <label>{'Điểm Kết thúc (Dự đoán):'}</label>
@@ -206,7 +226,7 @@ function AddDisaster({ close, funsub = () => {} }) {
                         forpopup
                         onChange={(e) => {
                             setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, lat: e.target.value }));
+                            setinfo((pre) => ({ ...pre, pointend: { ...pre.pointstart, lat: e.target.value } }));
                         }}
                     ></Input>
                     <Input
@@ -216,7 +236,7 @@ function AddDisaster({ close, funsub = () => {} }) {
                         forpopup
                         onChange={(e) => {
                             setmsg('Thêm');
-                            setinfo((pre) => ({ ...pre, long: e.target.value }));
+                            setinfo((pre) => ({ ...pre, pointend: { ...pre.pointstart, long: e.target.value } }));
                         }}
                     ></Input>
                     <div className={cx('colum2')}>

@@ -122,23 +122,34 @@ class StormController extends Controller
             $data = Disaster::whereBetween('startTime', [$request->data['startTime'], $request->data['endTime']])->get()->toArray();
             foreach ($data as $key => $value) {
 
-                $DisastertimeData = DisasterTime::where('DisasterID', $data[$key]['id'])->join('points', 'disaster_times.pointID', 'points.id')->get()->toArray();
+                $DisastertimeData = DisasterTime::where('DisasterID', $data[$key]['id'])->get()->toArray();
                 foreach ($DisastertimeData as $k => $v) {
+                    $poi = Point::find($DisastertimeData[$k]['pointID'])->toArray();
+                    $DisastertimeData[$k]['position']=['lat'=>$poi['X'],'lng'=>$poi['Y']];
                     $Dataorbit = Orbit::where('DisasterTimeID', $DisastertimeData[$k]['id'])->get()->toArray();
                     $DisastertimeData[$k]['Orbit'] = $Dataorbit;
+
+
+                    
                 }
                 $data[$key]['DisasterTime'] = $DisastertimeData;
             }
 
 
         } else {
-            $data = Disaster::whereBetween('startTime', [$request->data['startTime'], $request->data['endTime']])->get()->toArray();
+            $data = Disaster::all()->toArray();
             foreach ($data as $key => $value) {
 
-                $DisastertimeData = DisasterTime::where('DisasterID', $data[$key]['id'])->join('points', 'disaster_times.pointID', 'points.id')->get()->toArray();
+                $DisastertimeData = DisasterTime::where('DisasterID', $data[$key]['id'])->get()->toArray();
                 foreach ($DisastertimeData as $k => $v) {
+                    $poi = Point::find($DisastertimeData[$k]['pointID'])->toArray();
+                    // return ['data' => $DisastertimeData[$k]['id'], 'result' => 0];
+                    $DisastertimeData[$k]['position']=['lat'=>$poi['X'],'lng'=>$poi['Y']];
                     $Dataorbit = Orbit::where('DisasterTimeID', $DisastertimeData[$k]['id'])->get()->toArray();
                     $DisastertimeData[$k]['Orbit'] = $Dataorbit;
+
+
+                    
                 }
                 $data[$key]['DisasterTime'] = $DisastertimeData;
             }
