@@ -100,6 +100,14 @@ class NotificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $storm = Notification::find($id);
+            //dd($storm);
+            $storm->delete();
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e, 'result' => -1], 202);
+        }
+
+        return response()->json(['message' => 'delete sucessful', 'result' => 0], 202);
     }
 }

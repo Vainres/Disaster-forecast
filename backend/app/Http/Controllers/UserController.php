@@ -88,11 +88,10 @@ class UserController extends Controller
         $token = $request->header('token');
         $sessionUser = SessionUser::where('token', $token)->first();
         $user = User::where('id', $sessionUser->user_id)->first();
-        $userLocation = Location::where('user_id',$user->id)->get();
-        foreach ($userLocation as $key =>$value)
-        {
-            $POINT = Point::where('id',$userLocation[$key]['point_id'])->first();
-            $userLocation[$key]['point_id']=$POINT;
+        $userLocation = Location::where('user_id', $user->id)->get();
+        foreach ($userLocation as $key => $value) {
+            $POINT = Point::where('id', $userLocation[$key]['point_id'])->first();
+            $userLocation[$key]['point_id'] = $POINT;
         }
         return response()->json([
             'data' => $userLocation,
@@ -101,11 +100,22 @@ class UserController extends Controller
 
         ], 200);
     }
+    function GetListIDUser()
+    {
+        $list = User::get('id');
+        return response()->json([
+            'data' => $list,
+            'code' => '200',
+            'result' => 0
+
+        ], 200);
+
+    }
 
     function UserDeleteLocation(Request $request)
     {
         $userLocation = Location::find($request->id);
-        if($userLocation==null)
+        if ($userLocation == null)
             return response()->json([
                 'data' => 'Id not exist',
                 'code' => '200',
@@ -116,7 +126,7 @@ class UserController extends Controller
         $deletedLocation = $userLocation->delete();
         $deletedPoint = $tpoint->delete();
 
-        if($deletedLocation)
+        if ($deletedLocation)
             return response()->json([
                 'data' => $deletedPoint,
                 'code' => '200',

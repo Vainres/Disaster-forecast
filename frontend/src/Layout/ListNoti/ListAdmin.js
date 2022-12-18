@@ -70,9 +70,10 @@ function ListNoti(props) {
     };
     const Delete = () => {
         const id_delete = localStorage.getItem('id_delete');
-        request.Delete(`admin/deleteadmin?id=${id_delete}`, [], () => {});
-        setstatus('Lưu ');
-
+        request.Delete(`admin/noti/${id_delete}`, [], (res) => {
+            console.log(res);
+        });
+        setstatus('Lưu ' + Math.round());
         DeleteDone();
     };
     const resettitledel = () => {
