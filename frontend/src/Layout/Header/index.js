@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCircle, faHome, faMap, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCircle, faHome, faMap, faSearch, faUser,faExclamation,faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import LogoWebsite from '~/Layout/Logo';
 import { Link } from 'react-router-dom';
 
@@ -34,11 +34,60 @@ function Header() {
                         </span>
                         <span className={cx('insertcmomtor')}></span>
                         <div className={cx('dropinfo')}>
-                            1111
-                            <br />
-                            23333
-                            <br />
-                            5555 666
+                            <div className={cx('attention')}>Thông báo</div>
+                            <hr/>
+                            <div className={cx('dropdown')}>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_attention')}>
+                                        <FontAwesomeIcon icon={faExclamation}/>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom on Timeline Share </p>
+					                    <span className={cx('notify_time')}>10 phút trước</span>
+                                    </div>
+			                    </div>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
+                                <div className={cx('notify_item')}>
+                                    <div className={cx('notify_icon_warning')}>
+                                        <FontAwesomeIcon icon={faTriangleExclamation}/>
+                                    </div>
+                                    <div className={cx('notify_info')}>
+					                    <p>Stom is coming Timeline Share </p>
+					                    <span className={cx('notify_time')}>1 ngày trước</span>
+                                    </div>
+			                    </div>
+
+
+                               
+                                
+                            </div>
+                            
                         </div>
                     </button>
                     <Link to="/Profile" className={cx('headerbtn')}>
