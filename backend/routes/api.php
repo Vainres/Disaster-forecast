@@ -42,6 +42,7 @@ Route::middleware(['checktoken'])->group(function () {
 
     Route::post('user/addlocation', [UserController::class, 'UserAddLocation']);
     Route::post('user/deletelocation', [UserController::class, 'UserDeleteLocation']);
+    Route::get('user/getallid', [UserController::class, 'GetListIDUser']);
 
     Route::resource('point', PointController::class);
 });

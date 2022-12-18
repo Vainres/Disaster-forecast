@@ -15,7 +15,14 @@ function AddNoti({ close, funsub = () => {} }) {
     const [info, setinfo] = useState({ isread: 0, ispass: 0, important: 0 });
     const [msg, setmsg] = useState('Thêm');
     const request = new Request();
+    const [checkall, setcheckall] = useState(false);
     const AddNewAD = () => {
+        if (checkall) {
+            request.Get('user/getallid', [], (res) => {
+                console.log(res.data.data.map((k) => k.id));
+                setinfo((pre) => ({ ...pre, user_id: res.data.data.map((k) => k.id) }));
+            });
+        }
         console.log(info);
         request.Post('/admin/noti', info, (res) => {
             console.log(res);
@@ -82,6 +89,14 @@ function AddNoti({ close, funsub = () => {} }) {
                             setinfo((pre) => ({ ...pre, user_id: [...value] }));
                         }}
                     ></Input>
+                    {'Tất cả user:'}
+                    <Checkbox
+                        onChange={() => {
+                            setcheckall(!checkall);
+                        }}
+                        value={checkall}
+                        sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+                    />
                     {/* <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
