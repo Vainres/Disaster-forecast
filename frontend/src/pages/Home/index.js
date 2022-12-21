@@ -54,7 +54,7 @@ function Home() {
     
     const liB= useRef(["places","geometry"]);
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyCZ-1P31RBKjlgL1UA2SYJ1KypcCg1Pdqs&libraries=geometry",
+        googleMapsApiKey: "AIzaSyDPro3AYHJw9GatrlmRRTz7DjztX3YCtwQ&libraries=geometry",
         libraries: liB.current,
       });
 
@@ -112,17 +112,12 @@ function Home() {
                 setGoogleKey(countState.current);
                 
             },[])
-            
+
+    const reRenderMap = useRef();
 
     useEffect(() => {
 
-        request.Get('user/location',[],(res) => {
-                if (res.status === 200) {
-                    MarkerList.current=res.data.data.map(data=>({...data,active:true}));
-                    setLocationUser(MarkerList.current);
-                } else {
-                }
-            });
+        
         let postData =[];
         if(startDate&&endDate)
         {
@@ -140,7 +135,17 @@ function Home() {
         request.Post('storm',postData,(res) => {
             if (res.status === 200) {
                 StormData.current=res.data.data.map(data=>({...data,active:false}));
+
                 setStormRender(StormData.current);
+                
+            } else {
+            }
+        });
+
+        request.Get('user/location',[],(res) => {
+            if (res.status === 200) {
+                MarkerList.current=res.data.data.map(data=>({...data,active:true}));
+                setLocationUser(MarkerList.current);
             } else {
             }
         });
@@ -155,7 +160,7 @@ function Home() {
             <div className={cx('controls')}  >
                 <AiIcon.AiOutlineFileSearch className={cx('icon')} size={20}/>
                 <Places 
-                    setLocationUser={(position) => setLocationUser(position)}
+                    setLocationUser={(position) => navigate(position)}
                 />
 
                 <FaIcon.FaCalendarTimes className={cx('icon')} size={18}/>
@@ -214,7 +219,8 @@ function Home() {
                         locationUser={locationUser} 
                         addMark ={addMark} 
                         setMapRef={setMapRef}
-                        center={center.current}/>
+                        center={center.current}
+                        reRenderMap={reRenderMap.current}/>
             </div>
         </div>
     );

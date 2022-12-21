@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notification;
 use App\Models\UserNoti;
 use Illuminate\Http\Request;
+use App\Models\SessionUser;
 
 class NotificationController extends Controller
 {
@@ -57,7 +58,57 @@ class NotificationController extends Controller
         return response()->json(['data' => $insert, 'message' => "create successfully", 'result' => 0], 201);
 
     }
+    public function UserStore(Request $request)
+    {
+        // UserNoti::truncate();
+        // Notification::truncate();
+        // return response()->json(['data' => '', 'message' => "create successfully", 'result' => 0], 201);
 
+        $token = $request->header('token');
+        $sessionUser = SessionUser::where('token', $token)->first();
+        $checkExistNoti = UserNoti::where('user_id',$sessionUser->user_id)->pluck('notifi_id')->toArray();
+        
+        if(isset($checkExistNoti)==true)
+        {
+            $checkExistContent = Notification::whereIn('id',$checkExistNoti)->where('content', $request->content)->get();
+        }
+        else
+        {
+            $insert = new Notification();
+            $insert['title'] = $request->title;
+            $insert['content'] = $request->content;
+            $insert['isread'] = $request->isread;
+            $insert['ispass'] = $request->ispass;
+            $insert['important'] = $request->important;
+            $insert->save();
+            $id_noti = $insert->id;
+            $user_noti = new UserNoti();
+            $user_noti['user_id'] = $sessionUser->user_id;
+            $user_noti['notifi_id'] = $id_noti;
+            $user_noti->save();
+            return response()->json(['data' => $insert, 'message' => "create successfully", 'result' => 0], 201);
+        }
+
+        if(count($checkExistContent) === 0)
+        {
+            $insert = new Notification();
+            $insert['title'] = $request->title;
+            $insert['content'] = $request->content;
+            $insert['isread'] = $request->isread;
+            $insert['ispass'] = $request->ispass;
+            $insert['important'] = $request->important;
+            $insert->save();
+            $id_noti = $insert->id;
+            $user_noti = new UserNoti();
+            $user_noti['user_id'] = $sessionUser->user_id;
+            $user_noti['notifi_id'] = $id_noti;
+            $user_noti->save();
+            return response()->json(['data' => $insert, 'message' => "create successfully", 'result' => 0], 201);
+
+        }
+        return response()->json(['data' => $checkExistContent, 'message' => "update successfully", 'result' => 0], 201);
+
+    }
     /**
      * Display the specified resource.
      *
@@ -67,6 +118,10 @@ class NotificationController extends Controller
     public function show($id)
     {
         //
+        $UserNoti = UserNoti::where('user_id',$id)->pluck('notifi_id')->toArray();
+        $NotiContent = Notification::whereIn('id',$UserNoti)->get();
+        return response()->json(['data' => $NotiContent, 'message' => "get successfully", 'result' => 0], 200);
+
     }
 
     /**

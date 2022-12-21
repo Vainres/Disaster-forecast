@@ -33,7 +33,7 @@ export default function FullStorm({StormData})
         {
             StormData.DisasterTime.map((data,index)=>{
                 if(index<StormData.DisasterTime.length-1){
-                    return <div>
+                    return <div key={index}>
                         {aPath(data,StormData.DisasterTime[index+1])}
                     </div>;
                 }

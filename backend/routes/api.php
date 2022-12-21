@@ -43,6 +43,8 @@ Route::middleware(['checktoken'])->group(function () {
     Route::post('user/addlocation', [UserController::class, 'UserAddLocation']);
     Route::post('user/deletelocation', [UserController::class, 'UserDeleteLocation']);
     Route::get('user/getallid', [UserController::class, 'GetListIDUser']);
+    Route::post('/user/noti', [NotificationController::class,'UserStore']);
+    Route::get('/user/noti/{id}', [NotificationController::class,'show']);
 
     Route::resource('point', PointController::class);
 });
@@ -53,8 +55,9 @@ Route::middleware(['checktoken', 'checkadmin'])->group(function () {
     Route::delete('admin/deleteadmin', [AdminController::class, 'DeleteID']);
     Route::post('admin/add', [AdminController::class, 'AddAdmin']);
     Route::resource('/admin/storm', StormController::class);
-    Route::resource('/admin/noti', NotificationController::class);
     Route::resource('/admin/disastertime', DisastertimeController::class);
+    Route::resource('/admin/noti', NotificationController::class);
+
     Route::get('admin/changepassword/checkpass', [UserController::class, 'ComparePassword']);
     Route::get('admin/listadmin', [AdminController::class, 'GetListAdmin']);
     Route::get('admin/listuser', [AdminController::class, 'GetListUser']);

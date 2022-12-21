@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faBell, faCircle, faHome, faMap, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCircle, faHome, faMap, faSearch, faUser,faToolbox} from '@fortawesome/free-solid-svg-icons';
 
 import LogoWebsite from '~/Layout/Logo';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,15 +12,22 @@ import { useState, useEffect } from 'react';
 const cx = classNames.bind(styles);
 function Header() {
     const [dataUser, setDataUser] = useState(0);
+    const [noti, setNoti] = useState([]);
+
     useEffect(() => {
         request.Get(`http://127.0.0.1:8000/api/admin/getuserif?id=${id}`, [], (res) => {
-            console.log('Trả về nè:', res);
+
             setDataUser({ ...res.data.data });
             let username = res.data.data.name;
             username = username.split(' ');
             username = username[username.length - 1];
-            console.log('ACS', username);
+
             localStorage.setItem('username', username);
+        });
+
+
+        request.Get(`http://127.0.0.1:8000/api/user/noti/${id}`, [], (res) => {
+            setNoti(res.data.data);
         });
     }, []);
     const navigate = useNavigate();
@@ -68,52 +75,38 @@ function Header() {
                             <div className={cx('attention')}>Thông báo</div>
                             <hr/>
                             <div className={cx('dropdown')}>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_attention')}>
-                                    <i class="fa-solid fa-exclamation"></i>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom on Timeline Share </p>
-					                    <span className={cx('notify_time')}>10 phút trước</span>
-                                    </div>
-			                    </div>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                    <i class="fa-solid fa-triangle-exclamation"></i>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
+                            {
+                                noti.map((eachNoti)=>{
+                                    let severity = ()=> <div className={cx('notify_icon_attention')}>
+                                                            <i class="fa-solid fa-exclamation"></i>
+                                                        </div>
+                                    if(eachNoti.important==2)
+                                    {
+                                        severity = ()=> <div className={cx('notify_icon_warning')}>
+                                                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                                        </div>
+                                    }
+                                    else if(eachNoti.important==3){
+                                        severity = ()=> <div className={cx('notify_icon_danger')}>
+                                                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                                        </div>
+                                    }
+                                    let [mark,...textNoti] = eachNoti.content.split(".");
+                                    let [label,name] = mark.split(":")
+                                    console.log('rest',name);
+                                    if(eachNoti.ispass==0)
+                                        return (                                
+                                        <div className={cx('notify_item')}>
+                                            {severity()}
+                                            <div className={cx('notify_info')}>
+                                                <p>{label+":"}<b>{name} </b></p>
+                                                <span className={cx('notify_time')}>{textNoti.join(".")}</span>
+                                            </div>
+                                        </div>)
+                                })
+                            }
 
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                    <i class="fa-solid fa-triangle-exclamation"></i>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                    <i class="fa-solid fa-triangle-exclamation"></i>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
-                                <div className={cx('notify_item')}>
-                                    <div className={cx('notify_icon_warning')}>
-                                    <i class="fa-solid fa-triangle-exclamation"></i>
-                                    </div>
-                                    <div className={cx('notify_info')}>
-					                    <p>Stom is coming Timeline Share </p>
-					                    <span className={cx('notify_time')}>1 ngày trước</span>
-                                    </div>
-			                    </div>
+                                
                                 
                             </div>
                             

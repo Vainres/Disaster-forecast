@@ -5,13 +5,18 @@ import classNames from 'classnames/bind';
 import FullStorm from '../../components/FullStorm';
 import Marker from '../../components/Marker';
 import Popup from "reactjs-popup";
+
+
+
 const cx = classNames.bind(styles);
 
-export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapRef=()=>{},center={lat:0,lng:0}}) {
+export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapRef=()=>{},center={lat:0,lng:0}},reRenderMap) {
 
     const mapRef = useRef();
     const [rightClickLocation,setRightClickLocation] = useState(null);
     const [directions,setDirections] = useState();
+    const [counter,setCounter] = useState(0);
+
     const containerStyle = useMemo(() => ({
         width: '100%',
         height: '100%',
@@ -39,10 +44,12 @@ export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapR
     const onLoad = useCallback((map) =>  {  mapRef.current = map;
                                             console.log('mapref',mapRef);
                                             setMapRef(map);
+                                            reRenderMap=setCounter;
                                         },[]);
     return (
         <div className={cx('wrapper')}>
             <GoogleMap
+              key={counter}
                 zoom={8}
                 center={center}
                 mapContainerStyle={containerStyle}
@@ -75,15 +82,20 @@ export default function MapLo({AllStormData,locationUser,addMark=()=>{} ,setMapR
 
                 {directions && <Polyline path={directions}/> }
 
-                {locationUser.map((marker,id)=>{
-                                                if(!marker.active) return;
-                                                return <Marker marker={marker} key={id} AllStormData={AllStormData}
-                                                        />  })}
-                                                        
+                <MarkerF position={center} 
+                
+                icon={{
+                  url: "https://cdn-icons-png.flaticon.com/512/4781/4781517.png", // url
+                  scaledSize: new window.google.maps.Size(40, 40)}}
+                />
 
                 {AllStormData.map((storm,keyID) => { if(!storm.active) return;
                                                     return <FullStorm  key={keyID} StormData={storm}/>})
                 }
+                {locationUser.map((marker,id)=>{
+                                                if(!marker.active) return;
+                                                return <Marker marker={marker} key={id} AllStormData={AllStormData}
+                                                        />  })}
             </GoogleMap>
 
         </div>
